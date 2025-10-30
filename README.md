@@ -15,10 +15,9 @@ npm run build
 ```
 
 ### Open the app
-Open the index.html file in your browser or use a simple local server:
 ```bash
 npx serve . 
 ```
-
+(or simply open index.html)
 
 
