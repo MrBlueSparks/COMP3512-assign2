@@ -6,5 +6,19 @@ function toggleViewDisplay(elementId) {
     element.setAttribute('style', element.style.display === 'none' ? 'display: block;' : 'display: none;');
 }
 
+document.addEventListener("click", function(event) {
+    const target = event.target;
+    if (target.matches("a[href^='#']")) {
+        event.preventDefault();
+        const targetId = target.getAttribute("href").substring(1);
+        toggleViewDisplay(targetId);
+    }
+});
+
+//set initial view with focus on home view
+
+
+    
+
 
 
