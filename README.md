@@ -4,20 +4,34 @@ This project was solely developed by Rhys Barker
 
 
 ## Project Setup
-### Install Dependencies
+
+### 1. Install Dependencies
+First, install all required npm packages:
 ```bash 
 npm install
 ```
 
-### Build Tailwind CSS
+### 2. Build Tailwind CSS
+Generate the CSS from the Tailwind configuration:
 ```bash
 npm run build
 ```
 
-### Open the app
+To continuously rebuild during development:
 ```bash
-npx serve . 
+npm run watch
 ```
-(or simply open index.html)
+
+### 3. Run the Application
+You can run the app in two ways:
+
+**Option A: Using a local server (recommended)**
+```bash
+npx serve .
+```
+Then open your browser to `http://localhost:3000` (or the port shown in terminal)
+
+**Option B: Direct file opening**
+Simply open `index.html` directly in your browser (file:// protocol)
 
 
