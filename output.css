@@ -516,8 +516,16 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.block {
-  display: block;
+.invisible {
+  visibility: hidden;
+}
+
+.bg-\[url\(\/images\/tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
+  background-image: url(/images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
+}
+
+.bg-cover {
+  background-size: cover;
 }
 
 .text-2xl {
