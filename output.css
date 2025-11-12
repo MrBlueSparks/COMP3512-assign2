@@ -520,8 +520,28 @@ video {
   visibility: hidden;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .bg-\[url\(\/images\/tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
   background-image: url(/images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
+}
+
+.bg-\[url\(images\/tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
+  background-image: url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
+}
+
+.bg-\[url\(\.\/images\/tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
+  background-image: url(./images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
+}
+
+.bg-\[url\(\.\.\/images\/tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
+  background-image: url(../images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
+}
+
+.bg-\[url\(tamara-bellis-IwVRO3TLjLc-unsplash\.jpg\)\] {
+  background-image: url(tamara-bellis-IwVRO3TLjLc-unsplash.jpg);
 }
 
 .bg-cover {
@@ -531,6 +551,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .font-bold {

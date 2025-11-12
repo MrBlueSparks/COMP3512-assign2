@@ -1,21 +1,27 @@
-document.write("<h1 class='text-3xl font-bold text-blue-600'>Hello Tailwind from JS 👋</h1>");
 
-// Function to toggle the display of a view
-function toggleViewDisplay(elementId) {
-    const element = document.getElementById(elementId);
-    element.setAttribute('style', element.style.display === 'none' ? 'display: block;' : 'display: none;');
+
+//const navLink = document.querySelectorAll('p a');
+
+//using event delegation for each nav element
+const navLinksListner = document.querySelector("nav").addEventListener("click", focusOnView);
+
+
+function focusOnView(e){
+    if(e.target.tagName === "A"){
+        const viewId = e.target.getAttribute("href").substring(1); //get the id without the #
+        const views = document.querySelectorAll("main article");
+        
+        views.forEach((view) => {
+            if(view.id === viewId){
+                view.classList.remove("invisible");
+            } else {
+                view.classList.add("invisible");
+            }
+        });
+    }
 }
 
-document.addEventListener("click", function(event) {
-    const target = event.target;
-    if (target.matches("a[href^='#']")) {
-        event.preventDefault();
-        const targetId = target.getAttribute("href").substring(1);
-        toggleViewDisplay(targetId);
-    }
-});
 
-//set initial view with focus on home view
 
 
     
