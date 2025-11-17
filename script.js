@@ -11,6 +11,9 @@ function focusOnView(e){
         }
     }
 }
+//card elements for home page
+const product1 = products[0];
+console.log(product1.id);
 
 const card = document.querySelector(".product-card");
 const clone = card.content.cloneNode(true);
@@ -21,4 +24,4 @@ document.querySelector("#product-list").appendChild(clone);
 
 });
 
-z
+
