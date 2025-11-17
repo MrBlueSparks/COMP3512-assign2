@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function(){
+
 const navLinksListner = document.querySelector("nav").addEventListener("click", focusOnView);
 
 function focusOnView(e){
@@ -10,10 +12,13 @@ function focusOnView(e){
     }
 }
 
+const card = document.querySelector(".product-card");
+const clone = card.content.cloneNode(true);
+clone.querySelector("img").setAttribute("src", "images/image.png");
+clone.querySelector("#product-name").textContent = "Sample Product";
+clone.querySelector("#product-price").textContent = "$19.99";
+document.querySelector("#product-list").appendChild(clone);
 
+});
 
-
-    
-
-
-
+z
