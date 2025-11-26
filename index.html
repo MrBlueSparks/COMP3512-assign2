@@ -6,20 +6,28 @@
     <link href="output.css" rel="stylesheet">
     <title>Document</title>
     <script src="scripts/script.js"></script>
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+    </style>
 </head>
 <body>
-<header>
-<nav>
+<header class="flex w-100 justify-around h-20 text-white text-xl items-center">
     <p>Logo</p>
-    <p><a href="#home">Home</a> | <a href="#browse">Browse</a> | <a href="#about">About</a> / <a href="#cart">Cart</a></p>
+<nav class=" flex  space-x-10">
+    <a href="#home">Home</a> 
+    <a href="#browse">Browse</a>  
+    <a href="#about">About</a> 
 </nav>
+<a href="#cart"><img class="h-10 grow" src="images/shoppingCart.png"/></a>
 </header>
 <main>
-<article class="bg-gray w-100 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover h-screen" id="home">
+<article class="bg-gray w-100 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover h-screen -mt-20" id="home">
     <h1 class="text-9xl font-bold text-gray-50 flex justify-center items-center h-full">Welcome to Our Store</h1>
     <ul class="flex justify-around " id="product-list">
         <template class="product-card">
-            <div class="max-w-sm rounded-full overflow-hidden shadow-lg -mt-40">
+            <div class="max-w-sm rounded-[2vw] overflow-hidden shadow-lg -translate-y-60 transition-all duration-300 hover:scale-105 bg-white">
                 <img class="w-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2" id="product-name"></div>
