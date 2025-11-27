@@ -623,8 +623,17 @@ video {
   inset: -0.25rem;
 }
 
+.inset-x-0{
+  left: 0px;
+  right: 0px;
+}
+
 .end-1{
   inset-inline-end: 0.25rem;
+}
+
+.bottom-0{
+  bottom: 0px;
 }
 
 .isolate{
@@ -633,22 +642,6 @@ video {
 
 .isolation-auto{
   isolation: auto;
-}
-
-.z-10{
-  z-index: 10;
-}
-
-.z-20{
-  z-index: 20;
-}
-
-.z-40{
-  z-index: 40;
-}
-
-.z-auto{
-  z-index: auto;
 }
 
 .float-right{
@@ -679,6 +672,10 @@ video {
   clear: none;
 }
 
+.-mt-20{
+  margin-top: -5rem;
+}
+
 .mb-2{
   margin-bottom: 0.5rem;
 }
@@ -687,8 +684,12 @@ video {
   margin-top: 0.5rem;
 }
 
-.-mt-20{
-  margin-top: -5rem;
+.mt-20{
+  margin-top: 5rem;
+}
+
+.mt-60{
+  margin-top: 15rem;
 }
 
 .box-border{
@@ -794,6 +795,10 @@ video {
   height: 2.5rem;
 }
 
+.h-20{
+  height: 5rem;
+}
+
 .h-full{
   height: 100%;
 }
@@ -802,12 +807,12 @@ video {
   height: 100vh;
 }
 
-.h-20{
-  height: 5rem;
+.min-h-screen{
+  min-height: 100vh;
 }
 
-.w-10{
-  width: 2.5rem;
+.min-h-full{
+  min-height: 100%;
 }
 
 .w-full{
@@ -816,6 +821,14 @@ video {
 
 .max-w-sm{
   max-width: 24rem;
+}
+
+.flex-auto{
+  flex: 1 1 auto;
+}
+
+.flex-1{
+  flex: 1 1 0%;
 }
 
 .flex-shrink{
@@ -860,16 +873,6 @@ video {
 
 .-translate-y-60{
   --tw-translate-y: -15rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-y-60{
-  --tw-translate-y: 15rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-y-20{
-  --tw-translate-y: 5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1345,16 +1348,16 @@ video {
   justify-items: stretch;
 }
 
-.space-x-2 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-x-10 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
   margin-right: calc(2.5rem * var(--tw-space-x-reverse));
   margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-2 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-reverse > :not([hidden]) ~ :not([hidden]){
@@ -1907,10 +1910,6 @@ video {
      object-fit: scale-down;
 }
 
-.p-6{
-  padding: 1.5rem;
-}
-
 .px-6{
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1975,10 +1974,6 @@ video {
 
 .align-super{
   vertical-align: super;
-}
-
-.font-sans{
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-2xl{
