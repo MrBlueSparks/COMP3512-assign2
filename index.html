@@ -12,22 +12,22 @@
         }
     </style>
 </head>
-<body class="flex flex-col min-h-full">
-<header class="flex w-100 justify-around h-20 text-white text-xl items-center">
+<body class="flex flex-col min-h-screen">
+<header class="relative z-50 flex w-100 justify-around h-20 text-white text-xl items-center">
     <p>Logo</p>
-<nav class=" flex  space-x-10">
-    <a href="#home">Home</a> 
-    <a href="#browse">Browse</a>  
-    <a href="#about">About</a> 
-</nav>
-<a href="#cart"><img class="h-10 grow" src="images/shoppingCart.png"/></a>
+    <nav class="flex space-x-10">
+        <a href="#home">Home</a> 
+        <a href="#browse">Browse</a>  
+        <a href="#about">About</a> 
+    </nav>
+    <a href="#cart"><img class="h-10" src="images/shoppingCart.png"/></a>
 </header>
-<main>
-<article class="bg-gray w-100 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover h-screen -mt-20" id="home">
-    <h1 class="text-9xl font-bold text-gray-50 flex justify-center items-center h-full">Welcome to Our Store</h1>
-    <ul class="flex justify-around " id="product-list">
+<main >
+<article class="relative bg-gray w-100 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover bg-center min-h-screen -mt-20 -mb-20" id="home">
+    <h1 class="text-9xl font-bold text-gray-50 flex justify-center items-center">Welcome to Our Store</h1>
+    <ul class="absolute bottom-0 left-0 right-0 flex justify-around pb-20" id="product-list">
         <template class="product-card">
-            <div class="max-w-sm rounded-[2vw] overflow-hidden shadow-lg -translate-y-60 transition-all duration-300 hover:scale-105 bg-white">
+            <div class="max-w-sm rounded-[2vw] overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 bg-white">
                 <img class="w-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2" id="product-name"></div>
@@ -36,10 +36,6 @@
             </div>
         </template>    
     </ul>
-    
-       
-</div>        
-    </template>    
 </article>
 
 <article class="invisible" id="browse">
@@ -60,9 +56,9 @@
 </article>
 </main>
 
-<footer class="mt-60 z-1000">
+<footer class="bg-gray-900 text-white text-center py-6 ">
     <p>© 2025 My Store — COMP 3512 Assignment 2</p>
-    <p><a href="https://github.com/MrBlueSparks/COMP3512-assign2">GitHub Repo</a></p>
+    <p><a href="https://github.com/MrBlueSparks/COMP3512-assign2" class="hover:text-gray-300">GitHub Repo</a></p>
 </footer>  
 
 
