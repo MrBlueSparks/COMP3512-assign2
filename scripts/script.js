@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", function(){
 
- document.querySelectorAll("nav").forEach(nav => nav.addEventListener("click", focusOnView));
 
+document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
 function focusOnView(e){
-    if(e.target.tagName === "A"){
-        const viewId = e.target.getAttribute("href").substring(1); //get the id without the #
-        const views = document.querySelectorAll("main article");
-        for (let view of views) {
-             if (viewId != "home"){
-                document.querySelector("main").classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
-             }
-             else if (viewId == "home"){
-                document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
+    e.preventDefault();
+    const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
+    const viewId = link.getAttribute("href").substring(1); //get the id without the #
+    const views = document.querySelectorAll("main article");
+    for (let view of views) {
+         if (viewId != "home"){
+            document.querySelector("main").classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
+         }
+         else if (viewId == "home"){
+            document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
             }
-             view.id == viewId ? view.classList.remove("invisible") : 
-             view.classList.add("invisible");
-        }
+         view.id == viewId ? view.classList.remove("invisible") : 
+         view.classList.add("invisible");
     }
 }
 
