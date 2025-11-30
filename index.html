@@ -12,24 +12,24 @@
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-900">
 <header class="relative z-50 flex w-100 justify-around h-20 text-white text-xl items-center">
-    <p>Logo</p>
+    <a href="#home"><img class="h-10" src="images/cube.png"/></a>
     <nav class="flex space-x-10">
         <a href="#home">Home</a> 
         <a href="#browse">Browse</a>  
         <a href="#about">About</a> 
-    </nav>
+    </nav>  
     <a href="#cart"><img class="h-10" src="images/shoppingCart.png"/></a>
 </header>
-<main>
-<article class="relative bg-gray w-100 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover bg-center min-h-screen -mt-20 -mb-32" id="home">
-    <h1 class="text-9xl font-bold text-gray-50 flex justify-center items-center">Welcome to Our Store</h1>
-    <ul class="absolute bottom-0 left-0 right-0 flex justify-around pb-20" id="product-list">
+<main class="bg-gray-900 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover bg-center -mt-20 flex-grow">
+<article class="w-100 min-h-screen pt-20 pb-32" id="home">
+    <h1 class="pt-20 text-8xl font-bold text-gray-50 flex justify-center drop-shadow-md">Welcome to Our Store</h1>
+    <ul class="absolute bottom-0 left-0 right-0 flex justify-around " id="product-list">
         <template class="product-card">
-            <div class="max-w-sm rounded-[2vw] overflow-hidden shadow-lg transition-all duration-300 hover:scale-105 bg-white">
-                <img class="w-full">
-                <div class="px-6 py-4">
+            <div class="max-w-xs rounded-[2vw] overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white">
+                <img class="w-full"/>
+                <div class="px-6 py-4 text-center">
                     <div class="font-bold text-xl mb-2" id="product-name"></div>
                     <p class="text-gray-700 text-base" id="product-price"></p>
                 </div>
