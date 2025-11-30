@@ -65,6 +65,37 @@ document.querySelector("#genderFilterButton").addEventListener("click", () => to
 document.querySelector("#categoryFilterButton").addEventListener("click", () => toggleFilter("categoryFilter"));
 document.querySelector("#colorFilterButton").addEventListener("click", () => toggleFilter("colorFilter"));
 document.querySelector("#sizeFilterButton").addEventListener("click", () => toggleFilter("sizeFilter"));
+
+// Color swatch click handlers
+document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
+    swatch.addEventListener('click', function() {
+        // Toggle active state
+        this.classList.toggle('ring-4');
+        this.classList.toggle('ring-white');
+        this.classList.toggle('scale-110');
+        
+        // Get selected color
+        const color = this.dataset.color;
+        console.log('Color selected:', color);
+        
+        // TODO: Apply filter logic here
+    });
+});
+
+// Size pill click handlers
+document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
+    pill.addEventListener('click', function() {
+        // Toggle active state
+        this.classList.toggle('bg-white');
+        this.classList.toggle('text-gray-900');
+        
+        // Get selected size
+        const size = this.dataset.size;
+        console.log('Size selected:', size);
+        
+        // TODO: Apply filter logic here
+    });
+});
 /*
 const card = document.querySelector(".product-card");
 const productList = document.querySelector("#product-list");

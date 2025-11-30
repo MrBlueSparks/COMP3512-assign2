@@ -41,7 +41,7 @@
     
 
   <!-- Filters -->
-    <section class="flex-col gap-4 mb-6 ml-6">
+    <section class="flex-col mb-6 ml-6">
         <h2 class="text-3xl text-white font-bold mb-6">Browse Products</h2>
         <div class="border-b py-3">
 
@@ -49,18 +49,18 @@
             <span class="font-semibold">Gender</span>
             <span id="genderFilterIcon">+</span>
         </button>
-        <div id="genderFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+        <div id="genderFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
             <div class="pt-2 pl-2 flex flex-col gap-2">
-            <label><input type="checkbox"> Men</label>
-            <label><input type="checkbox"> Women</label>
-        </div>
+                <label><input type="checkbox"> Men</label>
+                <label><input type="checkbox"> Women</label>
+            </div>
         </div>
 
-        <button class="w-full flex items-center justify-between text-white" id="categoryFilterButton">
+        <button class="w-full flex items-center justify-between text-white " id="categoryFilterButton">
             <span class="font-semibold">Category</span>
             <span id="categoryFilterIcon">+</span>
         </button>
-        <div id="categoryFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+        <div id="categoryFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
             <div class="pt-2 pl-2 flex flex-col gap-2">
                 <label><input type="checkbox">Tops</label>
                 <label><input type="checkbox">Bottoms</label>
@@ -76,27 +76,91 @@
             </div>
         </div>
 
-        <button class="w-full flex items-center justify-between text-white" id="colorFilterButton">
+        <button class="w-full flex items-center justify-between text-white " id="colorFilterButton">
             <span class="font-semibold">Color</span>
             <span id="colorFilterIcon">+</span>
         </button>
-        <div id="colorFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
-            <div class="pt-2 pl-2 flex flex-col gap-2">
-            <label><input type="checkbox"> Red</label>
-            <label><input type="checkbox"> Blue</label>
-            <label><input type="checkbox"> Green</label>
+        <div id="colorFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
+            <div class="pt-2 pl-2 grid grid-cols-5 gap-3">
+                <!--Took reference from stores such as Nike-->
+                <!-- Black -->
+                <button class="w-10 h-10 rounded-full bg-black border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Black" title="Black"></button>
+                <!-- White -->
+                <button class="w-10 h-10 rounded-full bg-white border-2 border-gray-300 hover:border-gray-900 transition-all duration-200" data-color="White" title="White"></button>
+                <!-- Gray -->
+                <button class="w-10 h-10 rounded-full bg-gray-500 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Gray" title="Gray"></button>
+                <!-- Navy -->
+                <button class="w-10 h-10 rounded-full bg-blue-900 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Navy" title="Navy"></button>
+                <!-- Beige/Tan -->
+                <button class="w-10 h-10 rounded-full bg-amber-200 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Beige" title="Beige/Tan"></button>
+                <!-- Red -->
+                <button class="w-10 h-10 rounded-full bg-red-600 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Red" title="Red"></button>
+                <!-- Blue -->
+                <button class="w-10 h-10 rounded-full bg-blue-500 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Blue" title="Blue"></button>
+                <!-- Green -->
+                <button class="w-10 h-10 rounded-full bg-green-600 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Green" title="Green"></button>
+                <!-- Yellow -->
+                <button class="w-10 h-10 rounded-full bg-yellow-400 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Yellow" title="Yellow"></button>
+                <!-- Pink -->
+                <button class="w-10 h-10 rounded-full bg-pink-400 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Pink" title="Pink"></button>
+                <!-- Brown -->
+                <button class="w-10 h-10 rounded-full bg-amber-800 border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Brown" title="Brown"></button>
+                <!-- Multicolor -->
+                <button class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-white transition-all duration-200 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500" data-color="Multicolor" title="Multicolor"></button>
             </div>
         </div>
 
-        <button class="w-full flex items-center justify-between text-white" id="sizeFilterButton">
+        <button class="w-full flex items-center justify-between text-white " id="sizeFilterButton">
             <span class="font-semibold">Size</span>
             <span id="sizeFilterIcon">+</span>
         </button>
-        <div id="sizeFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
-            <div class="pt-2 pl-2 flex flex-col gap-2">
-            <label><input type="checkbox"> Small</label>
-            <label><input type="checkbox"> Medium</label>
-            <label><input type="checkbox"> Large</label>
+        <div id="sizeFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
+            <div class="pt-2 pl-2">
+                <!-- Clothing Sizes Section -->
+                <div class="mb-4">
+                    <p class="text-sm text-gray-400 mb-2">Clothing</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="XS">XS</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="S">S</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="M">M</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="L">L</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="XL">XL</button>
+                    </div>
+                </div>
+                
+                <!-- Numeric Sizes Section -->
+                <div class="mb-4">
+                    <p class="text-sm text-gray-400 mb-2">Numeric</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="24">24</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="26">26</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="28">28</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="30">30</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="32">32</button>
+                    </div>
+                </div>
+                
+                <!-- Shoe Sizes Section -->
+                <div class="mb-4">
+                    <p class="text-sm text-gray-400 mb-2">Shoes</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="6">6</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="7">7</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="8">8</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="9">9</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="10">10</button>
+                    </div>
+                </div>
+                
+                <!-- Universal Sizes Section -->
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Universal</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="One Size">One Size</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="S/M">S/M</button>
+                        <button class="px-3 py-1 border border-gray-400 rounded-md hover:bg-white hover:text-gray-900 transition-all duration-200" data-size="L/XL">L/XL</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
