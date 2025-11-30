@@ -48,6 +48,23 @@ function populateHomePage(products){
     }
 }
 
+function toggleFilter(id) {
+  const el = document.getElementById(id);
+  const icon = document.getElementById(id + "Icon");
+
+  if (el.style.maxHeight && el.style.maxHeight !== "0px") {
+    el.style.maxHeight = "0px";
+    icon.textContent = "+";
+  } else {
+    el.style.maxHeight = el.scrollHeight + "px";
+    icon.textContent = "–";
+  }
+}
+
+document.querySelector("#genderFilterButton").addEventListener("click", () => toggleFilter("genderFilter"));
+document.querySelector("#categoryFilterButton").addEventListener("click", () => toggleFilter("categoryFilter"));
+document.querySelector("#colorFilterButton").addEventListener("click", () => toggleFilter("colorFilter"));
+document.querySelector("#sizeFilterButton").addEventListener("click", () => toggleFilter("sizeFilter"));
 /*
 const card = document.querySelector(".product-card");
 const productList = document.querySelector("#product-list");

@@ -37,20 +37,81 @@
     </ul>
 </article>
 
-<article class="w-100" id="browse">
-    <h2 class="text-3xl text-white font-bold mb-6">Browse Products</h2>
+<article class="w-100 pt-20 flex" id="browse">
+    
 
   <!-- Filters -->
-  <div class="flex gap-4 mb-6">
-    <select id="categoryFilter" class="border p-2 rounded"></select>
-    <select id="sortSelect" class="border p-2 rounded">
-      <option value="">Sort By</option>
-      <option value="price-asc">Price: Low to High</option>
-      <option value="price-desc">Price: High to Low</option>
-      <option value="az">A → Z</option>
-      <option value="za">Z → A</option>
-    </select>
-  </div>
+    <section class="flex-col gap-4 mb-6 ml-6">
+        <h2 class="text-3xl text-white font-bold mb-6">Browse Products</h2>
+        <div class="border-b py-3">
+
+        <button class="w-full flex justify-between items-center text-white" id="genderFilterButton" >
+            <span class="font-semibold">Gender</span>
+            <span id="genderFilterIcon">+</span>
+        </button>
+        <div id="genderFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+            <div class="pt-2 pl-2 flex flex-col gap-2">
+            <label><input type="checkbox"> Men</label>
+            <label><input type="checkbox"> Women</label>
+        </div>
+        </div>
+
+        <button class="w-full flex items-center justify-between text-white" id="categoryFilterButton">
+            <span class="font-semibold">Category</span>
+            <span id="categoryFilterIcon">+</span>
+        </button>
+        <div id="categoryFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+            <div class="pt-2 pl-2 flex flex-col gap-2">
+                <label><input type="checkbox">Tops</label>
+                <label><input type="checkbox">Bottoms</label>
+                <label><input type="checkbox">Sweaters</label>
+                <label><input type="checkbox">Outerwear</label>
+                <label><input type="checkbox">Dresses</label>
+                <label><input type="checkbox">Accessories</label>
+                <label><input type="checkbox">Jumpsuits</label>
+                <label><input type="checkbox">Loungewear</label>
+                <label><input type="checkbox">Shoes</label>
+                <label><input type="checkbox">Intimates</label>
+                <label><input type="checkbox">Swimwear</label>
+            </div>
+        </div>
+
+        <button class="w-full flex items-center justify-between text-white" id="colorFilterButton">
+            <span class="font-semibold">Color</span>
+            <span id="colorFilterIcon">+</span>
+        </button>
+        <div id="colorFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+            <div class="pt-2 pl-2 flex flex-col gap-2">
+            <label><input type="checkbox"> Red</label>
+            <label><input type="checkbox"> Blue</label>
+            <label><input type="checkbox"> Green</label>
+            </div>
+        </div>
+
+        <button class="w-full flex items-center justify-between text-white" id="sizeFilterButton">
+            <span class="font-semibold">Size</span>
+            <span id="sizeFilterIcon">+</span>
+        </button>
+        <div id="sizeFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300">
+            <div class="pt-2 pl-2 flex flex-col gap-2">
+            <label><input type="checkbox"> Small</label>
+            <label><input type="checkbox"> Medium</label>
+            <label><input type="checkbox"> Large</label>
+            </div>
+        </div>
+    </section>
+    <section class="mb-6">
+        <select id="sortSelect" class="border p-2 rounded">
+            <option value="">Sort By</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+        </select>
+    </section>
+
+    
+  
 
   <!-- Grid -->
   <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
