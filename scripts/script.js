@@ -13,9 +13,9 @@ function focusOnView(e){
          }
          else if (viewId == "home"){
             document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
-            }
-         view.id == viewId ? view.classList.remove("invisible") : 
-         view.classList.add("invisible");
+        }
+         view.id == viewId ? view.classList.remove("hidden") : 
+         view.classList.add("hidden");
     }
 }
 

@@ -37,8 +37,23 @@
     </ul>
 </article>
 
-<article class="invisible" id="browse">
-    <h1> This is the Browse View</h1>
+<article class="w-100" id="browse">
+    <h2 class="text-3xl text-white font-bold mb-6">Browse Products</h2>
+
+  <!-- Filters -->
+  <div class="flex gap-4 mb-6">
+    <select id="categoryFilter" class="border p-2 rounded"></select>
+    <select id="sortSelect" class="border p-2 rounded">
+      <option value="">Sort By</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+    </select>
+  </div>
+
+  <!-- Grid -->
+  <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
 </article>
 
 <article class="invisible" id="singleProduct">
