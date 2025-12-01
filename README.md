@@ -29,7 +29,11 @@ You can run the app in two ways:
 ```bash
 npx serve .
 ```
-Then open your browser to `http://localhost:3000` (or the port shown in terminal)
+Then open your browser to `http://localhost:3000` (or the port shown in terminal). 
+You can also run npm run dev if you have the live server extension:
+```bash
+npm run dev
+```
 
 **Option B: Direct file opening**
 Simply open `index.html` directly in your browser (file:// protocol)

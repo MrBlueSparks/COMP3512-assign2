@@ -37,7 +37,7 @@
     </ul>
 </article>
 
-<article class="w-100 pt-20 flex" id="browse">
+<article class="w-100 pt-20 flex hidden" id="browse">
     
 
   <!-- Filters -->
@@ -165,20 +165,41 @@
         </div>
     </section>
     <section class="mb-6">
-        <select id="sortSelect" class="border p-2 rounded">
-            <option value="">Sort By</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="az">A → Z</option>
-            <option value="za">Z → A</option>
-        </select>
+
+        <header class="flex justify-between">
+            <div >Filters: </div>
+            <select id="sortSelect" class="w-20 border p-2 rounded">
+                <option value="">Sort By</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </header>
+
+        <template class="productCardTemplate">
+            <div class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer product-card m-4">
+                <img class="w-full product-image"/>
+                <div class="px-6 py-4 text-center">
+                    <div class="font-bold text-xl mb-2 product-name"></div>
+                    <p class="text-gray-700 text-base product-price"></p>
+                </div>
+            </div>
+        </template>
+        
+
+        <ul class="grid grid-cols-3" id="product-list-browse">
+
+        </ul>>
+
+        </ul>
     </section>
 
     
   
 
   <!-- Grid -->
-  <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
+  <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 "></div>
 </article>
 
 <article class="invisible" id="singleProduct">

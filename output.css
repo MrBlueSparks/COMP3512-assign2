@@ -679,6 +679,18 @@ video {
   clear: none;
 }
 
+.m-2{
+  margin: 0.5rem;
+}
+
+.m-auto{
+  margin: auto;
+}
+
+.m-4{
+  margin: 1rem;
+}
+
 .-mt-20{
   margin-top: -5rem;
 }
@@ -894,6 +906,10 @@ video {
 
 .transform-none{
   transform: none;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .touch-auto{
@@ -1170,6 +1186,10 @@ video {
 
 .grid-cols-5{
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row{

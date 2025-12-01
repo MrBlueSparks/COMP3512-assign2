@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
+
 function focusOnView(e){
     e.preventDefault();
     const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
@@ -13,6 +14,10 @@ function focusOnView(e){
          }
          else if (viewId == "home"){
             document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
+        }
+
+        if (viewId == "browse"){
+            populateProductPage();
         }
          view.id == viewId ? view.classList.remove("hidden") : 
          view.classList.add("hidden");
@@ -61,6 +66,7 @@ function toggleFilter(id) {
   }
 }
 
+// Filter button click handlers
 document.querySelector("#genderFilterButton").addEventListener("click", () => toggleFilter("genderFilter"));
 document.querySelector("#categoryFilterButton").addEventListener("click", () => toggleFilter("categoryFilter"));
 document.querySelector("#colorFilterButton").addEventListener("click", () => toggleFilter("colorFilter"));
@@ -121,10 +127,28 @@ clone3.querySelector("#product-price").textContent = "$39.99";
 productList.appendChild(clone3);
 */
 
-fetchProducts().then(products => {
-    populateHomePage(products);
-});
+fetchProducts()
+    .then(products => {
+        populateHomePage(products);
+    });
+
+
+async function populateProductPage(){
+        const card = document.querySelector(".productCardTemplate");
+        const productList = document.querySelector("#product-list-browse");
+        const products = await fetchProducts();
+
+        products.forEach(product => {
+            const clone = card.content.cloneNode(true);
+            clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
+            clone.querySelector(".product-name").textContent = product.name;
+            clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
+            productList.appendChild(clone);
+        });
+}
+
+//this is where we filter our products
+
+//function applyFilters(){
 
 });
-
-
