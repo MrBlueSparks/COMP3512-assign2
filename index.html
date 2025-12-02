@@ -165,9 +165,18 @@
     </section>
     <section class="mb-6">
 
-        <header class="flex justify-between">
-            <div >Filters: </div>
-            <select id="sortSelect" class="w-20 border p-2 rounded">
+        <header class="flex gap-4 justify-between items-start">
+            <template class="activeFiltersTemplate">
+                <li>
+                    <button class="bg-gray-700 text-white gap-4 px-3 rounded inline-flex items-center gap-2 text-sm  remove-filter">                    
+                        <span class="text-xs m-2" id="deleteBtnText"></span>
+                        <span class="text-xs">✕</span>
+                    </button>
+                </li>
+            </template>
+            <ul id="filterList" class="text-white flex gap-2 flex-wrap m-4" style="width:650px;"></ul>
+
+            <select id="sortSelect" class="w-40 border rounded">
                 <option value="">Sort By</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -191,9 +200,6 @@
         
 
         <ul class="grid grid-cols-3" id="product-list-browse">
-
-        </ul>>
-
         </ul>
     </section>
 

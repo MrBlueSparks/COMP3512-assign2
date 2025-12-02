@@ -16,15 +16,6 @@ fetchProducts()
     .then(products => {
         allProducts = products;
         populateHomePage(products);
-        console.log('Blue colors in dataset:');
-        products.forEach(product => {
-            product.color.forEach(colorObj => {
-                if (colorObj.name.toLowerCase().includes('blue')) {
-                    const distance = colorDistance(colorObj.hex, '#0000FF');
-                    console.log(`${colorObj.name} (${colorObj.hex}) - Distance from pure blue: ${distance}`);
-                }
-            });
-        });
     });
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
@@ -108,6 +99,7 @@ document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkb
             console.log("Gender filter applied:", gender);
             selectedFilters.genders.push(gender);
             filters = true;
+             
         }
         else {
             const gender = checkbox.name;
@@ -120,6 +112,7 @@ document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkb
         }
 
         applyFilters();
+        updateActiveFilters(); 
     });
 });
 
@@ -141,7 +134,7 @@ document.querySelectorAll('#categoryFilter input[type="checkbox"]').forEach(chec
             }
             filters = false;
         }
-
+        updateActiveFilters();
         applyFilters();
     });
 });
@@ -328,6 +321,18 @@ function colorMatchesWithDistance(productColors, filterColor) {
     });
 }
 
-
+function updateActiveFilters() {
+    const activeFiltersContainer = document.querySelector('#filterList');
+    const template = document.querySelector('.activeFiltersTemplate');
+    activeFiltersContainer.replaceChildren(); // Clear existing filters
+    for (const filterGroup in selectedFilters) {
+        selectedFilters[filterGroup].forEach(filterValue => {
+            if (!filterValue) return; // Skip empty values
+            const clone = template.content.cloneNode(true);
+            clone.querySelector("#deleteBtnText").textContent = filterValue;
+            activeFiltersContainer.appendChild(clone);
+        });
+    }
+}
 
 });
