@@ -181,7 +181,15 @@ document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
         const size = this.dataset.size;
         console.log('Size selected:', size);
         
-        // TODO: Apply filter logic here
+        const index = selectedFilters.sizes.indexOf(size);
+        if (index > -1) {
+            selectedFilters.sizes.splice(index, 1);
+            console.log('Size filter removed:', size);
+        } else {
+            selectedFilters.sizes.push(size);
+            console.log('Size filter applied:', size);
+        }
+        applyFilters();
     });
 });
 
@@ -233,8 +241,8 @@ function applyFilters(){
             )
         )
     }
-    /*
-    // Filter by size (add when ready)
+    
+    // Filter by size 
     if (selectedFilters.sizes.length > 0) {
         filtered = filtered.filter(product => 
             product.sizes.some(size => selectedFilters.sizes.includes(size))
@@ -242,7 +250,7 @@ function applyFilters(){
     }
     
     console.log(`Filtered: ${filtered.length} of ${allProducts.length} products`);
-    */
+    
     // Display the filtered products
     displayFilteredProducts(filtered);
 }
