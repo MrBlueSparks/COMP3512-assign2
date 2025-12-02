@@ -16,7 +16,15 @@ fetchProducts()
     .then(products => {
         allProducts = products;
         populateHomePage(products);
-        
+        console.log('Blue colors in dataset:');
+        products.forEach(product => {
+            product.color.forEach(colorObj => {
+                if (colorObj.name.toLowerCase().includes('blue')) {
+                    const distance = colorDistance(colorObj.hex, '#0000FF');
+                    console.log(`${colorObj.name} (${colorObj.hex}) - Distance from pure blue: ${distance}`);
+                }
+            });
+        });
     });
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
@@ -148,9 +156,17 @@ document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
         
         // Get selected color
         const color = this.dataset.color;
-        console.log('Color selected:', color);
         
-        // TODO: Apply filter logic here
+        const index = selectedFilters.colors.indexOf(color);
+        if (index > -1) {
+            selectedFilters.colors.splice(index, 1);
+            console.log('Color filter removed:', color);
+        } else {
+            selectedFilters.colors.push(color);
+            console.log('Color filter applied:', color);
+
+        }
+        applyFilters();
     });
 });
 
@@ -208,16 +224,16 @@ function applyFilters(){
             selectedFilters.categories.includes(product.category)
         );
     }
-    /*
+    
     // Filter by color (add when ready)
     if (selectedFilters.colors.length > 0) {
         filtered = filtered.filter(product => 
-            product.color.some(colorObj => 
-                selectedFilters.colors.includes(colorObj.name)
+            selectedFilters.colors.some(filterColor => 
+               colorMatchesWithDistance(product.color, filterColor) 
             )
-        );
+        )
     }
-    
+    /*
     // Filter by size (add when ready)
     if (selectedFilters.sizes.length > 0) {
         filtered = filtered.filter(product => 
@@ -253,6 +269,55 @@ function colorDistance(hex1, hex2) {
         Math.pow(rgb1.g - rgb2.g, 2) +
         Math.pow(rgb1.b - rgb2.b, 2)
     );
+}
+
+const referenceColors = {
+    'Black': '#000000',
+    'White': '#FFFFFF',
+    'Gray': '#808080',
+    'Navy': '#000080',
+    'Beige': '#F5F5DC',
+    'Red': '#FF0000',
+    'Blue': '#0000FF',
+    'Green': '#008000',
+    'Yellow': '#FFFF00',
+    'Pink': '#FFC0CB',
+    'Brown': '#8B4513',
+    'Multicolor': null // Special case - handle separately
+};
+
+const colorThresholds = {
+    'Black': 80,      // Strict - blacks should be very dark
+    'White': 80,      // Strict - whites should be very light
+    'Gray': 100,      // Medium - various shades
+    'Navy': 90,       // Strict - specific blue
+    'Beige': 120,     // Loose - tan/sand variations
+    'Red': 100,       // Medium-strict - avoid browns
+    'Blue': 180,      // Medium - various blues
+    'Green': 120,     // Medium - various greens
+    'Yellow': 100,    // Medium - avoid beige
+    'Pink': 110,      // Medium - blush variations
+    'Brown': 130,     // Loose - leather/tan/cognac
+    'Multicolor': 0   // Not used
+};
+
+
+function colorMatchesWithDistance(productColors, filterColor) {
+    if (filterColor === 'Multicolor') {
+        return productColors.some(colorObj => 
+            colorObj.name.toLowerCase().includes('multi')
+        );
+    }
+    
+    const referenceHex = referenceColors[filterColor];
+    const threshold = colorThresholds[filterColor]; 
+    if (!referenceHex) return false;
+    
+    return productColors.some(colorObj => {
+        const distance = colorDistance(colorObj.hex, referenceHex);
+        console.log(`Distance between ${colorObj.name} (${colorObj.hex}) and ${filterColor} (${referenceHex}): ${distance} (threshold: ${threshold})`);
+        return distance <= threshold;
+    });
 }
 
 
