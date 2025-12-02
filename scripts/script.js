@@ -1,7 +1,26 @@
 document.addEventListener("DOMContentLoaded", function(){
+let allProducts = [];
 
+// Track selected filters
+const selectedFilters = {
+    genders: [],
+    categories: [],
+    colors: [],
+    sizes: []
+};
+
+let filters = false;
+
+// Fetch products immediately on page load
+fetchProducts()
+    .then(products => {
+        allProducts = products;
+        populateHomePage(products);
+        
+    });
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
+
 
 function focusOnView(e){
     e.preventDefault();
@@ -17,7 +36,7 @@ function focusOnView(e){
         }
 
         if (viewId == "browse"){
-            populateProductPage();
+            displayProducts(allProducts);
         }
          view.id == viewId ? view.classList.remove("hidden") : 
          view.classList.add("hidden");
@@ -42,6 +61,7 @@ async function fetchProducts(){
 function populateHomePage(products){
     const card = document.querySelector(".product-card");
     const productList = document.querySelector("#product-list");
+    productList.replaceChildren(); // Clear existing products
     //add first 3 products to home page
     for (let i = 0; i < 3; i++){
         const product = products[i];
@@ -71,6 +91,52 @@ document.querySelector("#genderFilterButton").addEventListener("click", () => to
 document.querySelector("#categoryFilterButton").addEventListener("click", () => toggleFilter("categoryFilter"));
 document.querySelector("#colorFilterButton").addEventListener("click", () => toggleFilter("colorFilter"));
 document.querySelector("#sizeFilterButton").addEventListener("click", () => toggleFilter("sizeFilter"));
+
+
+document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        if (checkbox.checked){
+            const gender = checkbox.name;
+            console.log("Gender filter applied:", gender);
+            selectedFilters.genders.push(gender);
+            filters = true;
+        }
+        else {
+            const gender = checkbox.name;
+            console.log("Gender filter removed:", gender);
+            const index = selectedFilters.genders.indexOf(gender);
+            if (index > -1) {
+                selectedFilters.genders.splice(index, 1);
+            }
+            filters = false;
+        }
+
+        applyFilters();
+    });
+});
+
+//Category checkbox handlers
+document.querySelectorAll('#categoryFilter input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        if (checkbox.checked){
+            const category = checkbox.name;
+            console.log("Category filter applied:", category);
+            selectedFilters.categories.push(category);
+            filters = true;
+        }
+        else {
+            const category = checkbox.name;
+            console.log("Category filter removed:", category);
+            const index = selectedFilters.categories.indexOf(category);
+            if (index > -1) {
+                selectedFilters.categories.splice(index, 1);
+            }
+            filters = false;
+        }
+
+        applyFilters();
+    });
+});
 
 // Color swatch click handlers
 document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
@@ -102,41 +168,13 @@ document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
         // TODO: Apply filter logic here
     });
 });
-/*
-const card = document.querySelector(".product-card");
-const productList = document.querySelector("#product-list");
-const clone = card.content.cloneNode(true);
-//will replace with dynamic data later
-clone.querySelector("img").setAttribute("src", "https://picsum.photos/seed/picsum/400/300");
-clone.querySelector("#product-name").textContent = "Sample Product";
-clone.querySelector("#product-price").textContent = "$19.99";
-productList.appendChild(clone);
-
-const clone2 = card.content.cloneNode(true);
-//will replace with dynamic data later
-clone2.querySelector("img").setAttribute("src", "https://picsum.photos/seed/picsum/400/300");
-clone2.querySelector("#product-name").textContent = "Sample product 2";
-clone2.querySelector("#product-price").textContent = "$39.99";
-productList.appendChild(clone2);
-
-const clone3 = card.content.cloneNode(true);
-//will replace with dynamic data later
-clone3.querySelector("img").setAttribute("src", "https://picsum.photos/seed/picsum/400/300");
-clone3.querySelector("#product-name").textContent = "Sample product 3";
-clone3.querySelector("#product-price").textContent = "$39.99";
-productList.appendChild(clone3);
-*/
-
-fetchProducts()
-    .then(products => {
-        populateHomePage(products);
-    });
 
 
-async function populateProductPage(){
+async function displayProducts(products){
         const card = document.querySelector(".productCardTemplate");
         const productList = document.querySelector("#product-list-browse");
-        const products = await fetchProducts();
+        //const products = await fetchProducts();
+        productList.replaceChildren(); // Clear existing products
 
         products.forEach(product => {
             const clone = card.content.cloneNode(true);
@@ -145,10 +183,78 @@ async function populateProductPage(){
             clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
             productList.appendChild(clone);
         });
+        console.log("Products populated");
+        console.log(allProducts[0]);
+        
 }
+
 
 //this is where we filter our products
 
-//function applyFilters(){
+function applyFilters(){
+    // Start with all products, don't mutate the original array
+    let filtered = allProducts;
+    
+    // Filter by gender (only if genders are selected)
+    if (selectedFilters.genders.length > 0) {
+        filtered = filtered.filter(product => 
+            selectedFilters.genders.includes(product.gender)
+        );
+    }
+    
+     
+    if (selectedFilters.categories.length > 0) {
+        filtered = filtered.filter(product => 
+            selectedFilters.categories.includes(product.category)
+        );
+    }
+    /*
+    // Filter by color (add when ready)
+    if (selectedFilters.colors.length > 0) {
+        filtered = filtered.filter(product => 
+            product.color.some(colorObj => 
+                selectedFilters.colors.includes(colorObj.name)
+            )
+        );
+    }
+    
+    // Filter by size (add when ready)
+    if (selectedFilters.sizes.length > 0) {
+        filtered = filtered.filter(product => 
+            product.sizes.some(size => selectedFilters.sizes.includes(size))
+        );
+    }
+    
+    console.log(`Filtered: ${filtered.length} of ${allProducts.length} products`);
+    */
+    // Display the filtered products
+    displayFilteredProducts(filtered);
+}
+
+function displayFilteredProducts(filteredProducts) {
+    displayProducts(filteredProducts);
+}
+
+function converthexToRGB(hex) {
+    //remove the # and convert to integer with base 16
+    const bigint = parseInt(hex.replace('#', ''), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return { r, g, b };
+}
+//calculate euclidean distance between two colors, used for color similarity
+function colorDistance(hex1, hex2) {
+    const rgb1 = converthexToRGB(hex1);
+    const rgb2 = converthexToRGB(hex2);
+
+    return Math.sqrt(
+        Math.pow(rgb1.r - rgb2.r, 2) +
+        Math.pow(rgb1.g - rgb2.g, 2) +
+        Math.pow(rgb1.b - rgb2.b, 2)
+    );
+}
+
+
 
 });

@@ -51,8 +51,8 @@
         </button>
         <div id="genderFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
             <div class="pt-2 pl-2 flex flex-col gap-2">
-                <label><input type="checkbox"> Men</label>
-                <label><input type="checkbox"> Women</label>
+                <label><input name="mens" type="checkbox"> Men</label>
+                <label><input name="womens" type="checkbox"> Women</label>
             </div>
         </div>
 
@@ -62,17 +62,17 @@
         </button>
         <div id="categoryFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
             <div class="pt-2 pl-2 flex flex-col gap-2">
-                <label><input type="checkbox">Tops</label>
-                <label><input type="checkbox">Bottoms</label>
-                <label><input type="checkbox">Sweaters</label>
-                <label><input type="checkbox">Outerwear</label>
-                <label><input type="checkbox">Dresses</label>
-                <label><input type="checkbox">Accessories</label>
-                <label><input type="checkbox">Jumpsuits</label>
-                <label><input type="checkbox">Loungewear</label>
-                <label><input type="checkbox">Shoes</label>
-                <label><input type="checkbox">Intimates</label>
-                <label><input type="checkbox">Swimwear</label>
+                <label><input name="Tops" type="checkbox">Tops</label>
+                <label><input name="Bottoms" type="checkbox">Bottoms</label>
+                <label><input name="Sweaters" type="checkbox">Sweaters</label>
+                <label><input name="Outerwear" type="checkbox">Outerwear</label>
+                <label><input name="Dresses" type="checkbox">Dresses</label>
+                <label><input name="Accessories" type="checkbox">Accessories</label>
+                <label><input name="Jumpsuits" type="checkbox">Jumpsuits</label>
+                <label><input name="Loungewear" type="checkbox">Loungewear</label>
+                <label><input name="Shoes" type="checkbox">Shoes</label>
+                <label><input name="Intimates" type="checkbox">Intimates</label>
+                <label><input name="Swimwear" type="checkbox">Swimwear</label>
             </div>
         </div>
 
@@ -83,7 +83,6 @@
         <div id="colorFilter" class="max-h-0 text-white overflow-hidden transition-all duration-300 mb-4">
             <div class="pt-2 pl-2 grid grid-cols-5 gap-3">
                 <!--Took reference from stores such as Nike-->
-                <!-- Black -->
                 <button class="w-10 h-10 rounded-full bg-black border-2 border-gray-300 hover:border-white transition-all duration-200" data-color="Black" title="Black"></button>
                 <!-- White -->
                 <button class="w-10 h-10 rounded-full bg-white border-2 border-gray-300 hover:border-gray-900 transition-all duration-200" data-color="White" title="White"></button>
@@ -180,9 +179,12 @@
         <template class="productCardTemplate">
             <div class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer product-card m-4">
                 <img class="w-full product-image"/>
-                <div class="px-6 py-4 text-center">
-                    <div class="font-bold text-xl mb-2 product-name"></div>
-                    <p class="text-gray-700 text-base product-price"></p>
+                <div class="m-2 relative">
+                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
+                    <div class="px-6 py-4 text-center">
+                        <div class="font-bold text-xl mb-2 product-name"></div>
+                        <p class="text-gray-700 text-base product-price"></p>
+                    </div>
                 </div>
             </div>
         </template>
