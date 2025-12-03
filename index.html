@@ -166,16 +166,21 @@
     <section class="mb-6">
 
         <header class="flex gap-4 justify-between items-start">
+            <!--Template for the active filters buttons-->
             <template class="activeFiltersTemplate">
                 <li>
-                    <button class="bg-gray-700 text-white gap-4 px-3 rounded inline-flex items-center gap-2 text-sm  remove-filter">                    
+                    <button class="bg-gray-700 text-white gap-4 px-3 rounded inline-flex items-center gap-2 text-sm deleteFilterBtn">                    
                         <span class="text-xs m-2" id="deleteBtnText"></span>
                         <span class="text-xs">✕</span>
                     </button>
                 </li>
             </template>
-            <ul id="filterList" class="text-white flex gap-2 flex-wrap m-4" style="width:650px;"></ul>
-
+            
+            
+            <ul id="filterList" class="text-white flex gap-2 flex-wrap m-4" style="width:650px;"> </ul>
+            <button id="clearAllFiltersBtn" class="invisible bg-red-600 text-white px-3 rounded inline-flex items-center gap-2 text-sm">
+                        <span class="text-xs m-2">Clear All Filters</span>
+            </button>
             <select id="sortSelect" class="w-40 border rounded">
                 <option value="">Sort By</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -183,8 +188,10 @@
                 <option value="az">A → Z</option>
                 <option value="za">Z → A</option>
             </select>
+            
         </header>
 
+        <!--template for the product card for the browse view-->
         <template class="productCardTemplate">
             <div class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer product-card m-4">
                 <img class="w-full product-image"/>

@@ -159,7 +159,9 @@ document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
             console.log('Color filter applied:', color);
 
         }
+        updateActiveFilters();
         applyFilters();
+
     });
 });
 
@@ -182,6 +184,7 @@ document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
             selectedFilters.sizes.push(size);
             console.log('Size filter applied:', size);
         }
+        updateActiveFilters();
         applyFilters();
     });
 });
@@ -325,6 +328,15 @@ function updateActiveFilters() {
     const activeFiltersContainer = document.querySelector('#filterList');
     const template = document.querySelector('.activeFiltersTemplate');
     activeFiltersContainer.replaceChildren(); // Clear existing filters
+    
+    const clearAllButton = document.querySelector('#clearAllFiltersBtn');
+    // Show or hide the "Clear All Filters" button based on active filters
+    let isEmpty = Object.values(selectedFilters).every(arr => arr.length === 0);
+    if (isEmpty) {
+        clearAllButton.classList.add("invisible");
+    } else {
+        clearAllButton.classList.remove("invisible");
+    }
     for (const filterGroup in selectedFilters) {
         selectedFilters[filterGroup].forEach(filterValue => {
             if (!filterValue) return; // Skip empty values
@@ -334,5 +346,65 @@ function updateActiveFilters() {
         });
     }
 }
+
+//use event delegation to handle clicks on dynamically created delete buttons
+document.querySelector('#filterList').addEventListener('click', function(e) {
+    if (e.target.classList.contains('deleteFilterBtn') || e.target.closest('.deleteFilterBtn')) {
+        
+    
+        const filterValue = e.target.closest('.deleteFilterBtn').querySelector('#deleteBtnText').textContent;
+        for (const filterGroup in selectedFilters) {
+            const index = selectedFilters[filterGroup].indexOf(filterValue);
+            if (index > -1) {
+                selectedFilters[filterGroup].splice(index, 1);
+                // Uncheck the corresponding checkbox or deactivate the button
+                if (filterGroup === 'genders') {
+                    const checkbox = document.querySelector(`#genderFilter input[name="${filterValue}"]`);
+                    if (checkbox) checkbox.checked = false;
+                } else if (filterGroup === 'categories') {
+                    const checkbox = document.querySelector(`#categoryFilter input[name="${filterValue}"]`);
+                    if (checkbox) checkbox.checked = false;
+                } else if (filterGroup === 'colors') {
+                    const swatch = document.querySelector(`#colorFilter button[data-color="${filterValue}"]`);
+                    if (swatch) {
+                        swatch.classList.remove('ring-4', 'ring-white', 'scale-110');
+                    }
+                } else if (filterGroup === 'sizes') {
+                    const pill = document.querySelector(`#sizeFilter button[data-size="${filterValue}"]`);
+                    if (pill) {
+                        pill.classList.remove('bg-white', 'text-gray-900');
+                    }
+                }
+            }
+        }
+    }
+    updateActiveFilters();
+    applyFilters();
+    
+    });
+
+document.querySelector('#clearAllFiltersBtn').addEventListener('click', function() {
+    // Clear all selected filters
+    for (const filterGroup in selectedFilters) {
+        selectedFilters[filterGroup] = [];
+    }
+    // Uncheck all checkboxes and deactivate all buttons
+    document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    document.querySelectorAll('#categoryFilter input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
+        swatch.classList.remove('ring-4', 'ring-white', 'scale-110');
+    });
+    document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
+        pill.classList.remove('bg-white', 'text-gray-900');
+    });
+    updateActiveFilters();
+    applyFilters();
+
+
+});
 
 });
