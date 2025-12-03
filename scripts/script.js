@@ -201,6 +201,13 @@ async function displayProducts(products){
             clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
             clone.querySelector(".product-name").textContent = product.name;
             clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
+            
+            // Add click event listener to product card
+            const productCard = clone.querySelector("#productCardBrowse");
+            productCard.addEventListener("click", function() {
+                alert("Product view is under construction");
+            });
+            
             productList.appendChild(clone);
         });
         console.log("Products populated");
@@ -431,6 +438,8 @@ document.querySelector('#sortSelect').addEventListener('change', function() {
     }
     displayProducts(productsToSort);
 });
+
+
 
 
 
