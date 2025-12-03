@@ -19,7 +19,10 @@
         <a href="#browse">Browse</a>  
         <a href="#about">About</a> 
     </nav>  
-    <a href="#cart"><img class="h-10" src="images/shoppingCart.png"/></a>
+    <a href="#cart" class="relative">
+        <img class="h-10" src="images/shoppingCart.png"/>
+        <div id="cartItemCount" class="absolute -top-2 -right-1 bg-red-400 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</div>
+    </a>
 </header>
 <main class="bg-gray-900 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover bg-center -mt-20 flex-grow">
 <article class="w-100 min-h-screen pt-20 pb-32" id="home">

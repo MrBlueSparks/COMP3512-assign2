@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 let allProducts = [];
+const cartItems = [];
 
 // Track selected filters
 const selectedFilters = {
@@ -203,11 +204,17 @@ async function displayProducts(products){
             clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
             
             // Add click event listener to product card
+            /*
             const productCard = clone.querySelector("#productCardBrowse");
             productCard.addEventListener("click", function() {
                 alert("Product view is under construction");
             });
-            
+            */
+
+            const addtoCartBtn = clone.querySelector("#addToCartBtn");
+            addtoCartBtn.addEventListener("click", function(e) {
+                addToCart(e);
+            });
             productList.appendChild(clone);
         });
         console.log("Products populated");
@@ -440,8 +447,10 @@ document.querySelector('#sortSelect').addEventListener('change', function() {
 });
 
 
-
-
+function addToCart(event){
+    const cartCount = document.querySelector('#cartItemCount');
+    cartCount.textContent = parseInt(cartCount.textContent) + 1;
+}
 
 
 
