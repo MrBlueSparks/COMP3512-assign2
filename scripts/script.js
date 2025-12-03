@@ -403,8 +403,37 @@ document.querySelector('#clearAllFiltersBtn').addEventListener('click', function
     });
     updateActiveFilters();
     applyFilters();
-
-
 });
+
+document.querySelector('#sortSelect').addEventListener('change', function() {
+    const sortBy = this.value;
+    let productsToSort = allProducts;
+
+    if (sortBy == "price-asc"){
+        productsToSort.sort(
+            (a, b) => a.price - b.price
+        )
+    }
+    else if (sortBy == "price-desc"){
+        productsToSort.sort(
+            (a, b) => b.price - a.price
+        )
+    } 
+    else if (sortBy == "az"){
+        productsToSort.sort(
+            (a, b) => a.name.localeCompare(b.name)
+        )
+    }
+    else if (sortBy == "za"){
+        productsToSort.sort(
+            (a, b) => b.name.localeCompare(a.name)
+        )
+    }
+    displayProducts(productsToSort);
+});
+
+
+
+
 
 });
