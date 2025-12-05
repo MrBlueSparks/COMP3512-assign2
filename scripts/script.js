@@ -27,6 +27,8 @@ function focusOnView(e){
     const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
     const viewId = link.getAttribute("href").substring(1); //get the id without the #
     const views = document.querySelectorAll("main article");
+    const header = document.querySelector("header");
+    
     for (let view of views) {
          if (viewId != "home"){
             document.querySelector("main").classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
@@ -34,6 +36,9 @@ function focusOnView(e){
          else if (viewId == "home"){
             document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
         }
+        
+        // Remove black background from header when navigating away from single product view
+        header.classList.remove("bg-black");
 
         if (viewId == "browse"){
             displayProducts(allProducts);
@@ -69,6 +74,10 @@ function populateHomePage(products){
         clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
         clone.querySelector("#product-name").textContent = product.name;
         clone.querySelector("#product-price").textContent = `$${product.price.toFixed(2)}`;
+
+        clone.querySelector("#productCardHome").addEventListener("click", function(productEvent) {
+            //displaySingleProduct(productEvent);
+        });
         productList.appendChild(clone);
     }
 }
@@ -203,19 +212,21 @@ async function displayProducts(products){
             clone.querySelector(".product-name").textContent = product.name;
             clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
             
-            // Add click event listener to product card
-            /*
-            const productCard = clone.querySelector("#productCardBrowse");
-            productCard.addEventListener("click", function() {
-                alert("Product view is under construction");
-            });
-            */
-
             const addtoCartBtn = clone.querySelector("#addToCartBtn");
             addtoCartBtn.addEventListener("click", function(e) {
+                // Prevent the click from propagating to the product card
+                e.stopPropagation();
                 addToCart(e);
             });
+            
+            const productCard = clone.querySelector("#productCardBrowse");
+            productCard.addEventListener("click", function(productEvent) {
+                displaySingleProduct(productEvent);
+
+            });
             productList.appendChild(clone);
+
+            
         });
         console.log("Products populated");
         console.log(allProducts[0]);
@@ -262,12 +273,9 @@ function applyFilters(){
     console.log(`Filtered: ${filtered.length} of ${allProducts.length} products`);
     
     // Display the filtered products
-    displayFilteredProducts(filtered);
+    displayProducts(filtered);
 }
-
-function displayFilteredProducts(filteredProducts) {
-    displayProducts(filteredProducts);
-}
+        
 
 function converthexToRGB(hex) {
     //remove the # and convert to integer with base 16
@@ -449,9 +457,23 @@ document.querySelector('#sortSelect').addEventListener('change', function() {
 
 function addToCart(event){
     const cartCount = document.querySelector('#cartItemCount');
+    cartCount.classList.remove('hidden');
     cartCount.textContent = parseInt(cartCount.textContent) + 1;
+
+
 }
 
+function displaySingleProduct(event){
+    const productCard = event.currentTarget;
+    const singleProductView = document.querySelector("#singleProduct");
+    const main = document.querySelector("main");
+    const header = document.querySelector("header");
+    const browseView = document.querySelector("#browse");
 
+    // Add black background only for single product view
+    header.classList.add("bg-black");
+    browseView.classList.add("hidden");
+    singleProductView.classList.remove("hidden");
+}
 
 });

@@ -21,7 +21,7 @@
     </nav>  
     <a href="#cart" class="relative">
         <img class="h-10" src="images/shoppingCart.png"/>
-        <div id="cartItemCount" class="absolute -top-2 -right-1 bg-red-400 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</div>
+        <div id="cartItemCount" class="hidden absolute -top-2 -right-1 bg-red-400 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</div>
     </a>
 </header>
 <main class="bg-gray-900 bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)] bg-cover bg-center -mt-20 flex-grow">
@@ -29,7 +29,7 @@
     <h1 class="pt-20 text-8xl font-bold text-gray-50 flex justify-center drop-shadow-md">Welcome to Our Store</h1>
     <ul class="absolute bottom-0 left-0 right-0 flex justify-around " id="product-list">
         <template class="product-card">
-            <div class="max-w-xs rounded-[2vw] overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white">
+            <div id="productCardHome" class="max-w-xs rounded-[2vw] overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white">
                 <img class="w-full"/>
                 <div class="px-6 py-4 text-center">
                     <div class="font-bold text-xl mb-2" id="product-name"></div>
@@ -220,15 +220,31 @@
   <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 "></div>
 </article>
 
-<article class="invisible" id="singleProduct">
-    <h1> This is the Product View</h1>
+<article class="hidden bg-white pt-20 flex flex-col items-center" id="singleProduct">
+    <h1 class="text-black"> This is the Product View</h1>
+    <section id="mainProduct">
+        <img id="mainProductImage" class="w-96 mb-6"/>
+        
+
+        <h1 class="text-black text-3xl font-bold mb-6">Product Title</h1>
+        <p class="text-black text-2xl mb-6">Product Price</p>
+        <p class="text-black text-xl mb-6">Product Description</p>
+        <p class="text-black">Material</p>
+        <label class="text-black"> Quantity</label>
+        <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6"/>
+        <button class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</button>
+
+    </section>
+    <section id="relatedProducts">
+        <h1 class="text-black text-3xl font-bold mb-6">Related Products</h1>
+    </section>
 </article>
 
-<article class="invisible" id="cart">
+<article class="hidden" id="cart">
     <h1> This is the Cart View</h1>
 </article> 
 
-<article class="invisible" id="about">
+<article class="hidden" id="about">
     <h1 class="text-2xl font-bold text-blue-600">About Us</h1>
     <p>We are a company that loves Tailwind CSS!</p>
 </article>
