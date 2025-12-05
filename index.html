@@ -221,23 +221,29 @@
 </article>
 
 <article class="hidden bg-white pt-20" id="singleProduct">
-    <section id="mainProduct" class="flex flex-row p-6">
-        <div class="flex flex-wrap"style="width: 50%;"id="mainProductImages">
-            <img id="mainProductImage" class="w-full mb-6" src="https://picsum.photos/seed/mainproduct/800/800"/>
-            <img id="mainProductImage2" class="w-1/2 mb-6" src="https://picsum.photos/seed/product2/400/400"/>
-            <img id="mainProductImage3" class="w-1/2 mb-6" src="https://picsum.photos/seed/product3/400/400"/>
-        </div>
-        
-        <div id="mainProductDetails" class="flex flex-col p-6" style="width: 50%;">
-            <h1 class="text-black text-3xl font-bold mb-6">Product Title</h1>
-            <p class="text-black text-2xl mb-6">Product Price</p>
-            <p class="text-black text-xl mb-6">Product Description</p>
-            <p class="text-black">Material</p>
-            <label class="text-black"> Quantity</label>
-            <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6"/>
-            <button class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</button>
-        </div>
-    </section>
+    <template class="mainProductTemplate">
+            <div class="flex flex-wrap"style="width: 50%;"id="mainProductImages">
+                <img id="mainProductImage" class="w-full mb-6" />
+                <img id="mainProductImage2" class="w-1/2 mb-6" />
+                <img id="mainProductImage3" class="w-1/2 mb-6" />
+            </div>
+            
+            <div id="mainProductDetails" class="flex flex-col p-6" style="width: 50%;">
+                
+                    <h1 id="mainProductName" class="text-black text-3xl font-bold mb-6"></h1>
+                    <p id="mainProductPrice" class="text-black text-2xl mb-6"></p>
+                    <p class="text-black text-xl mb-6"></p>
+                    <p class="text-black">Material</p>
+                    <form method="post">
+                        <label for="quantityInput" class="text-black"> Quantity</label>
+                        <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6 text-center"/>
+                        <br>
+                        <submit class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</submit>
+                    </form>
+            </div>
+    </template>
+    <section id="mainProduct" class="flex flex-row p-6"></section>
+
     <section class="justify-center text-center bg-black" id="relatedProducts">
         <h1 class="text-white text-3xl font-bold mb-6 pt-10">Related Products</h1>
 

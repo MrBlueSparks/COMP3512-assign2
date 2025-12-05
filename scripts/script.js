@@ -220,6 +220,9 @@ async function displayProducts(products){
             });
             
             const productCard = clone.querySelector("#productCardBrowse");
+            productCard.id = product.id; // Set the id of the product card for reference
+            productCard.dataset.productName = product.name; // Store product name for later use
+            productCard.dataset.productPrice = product.price; // Store product price for later use
             productCard.addEventListener("click", function(productEvent) {
                 displaySingleProduct(productEvent);
 
@@ -469,11 +472,31 @@ function displaySingleProduct(event){
     const main = document.querySelector("main");
     const header = document.querySelector("header");
     const browseView = document.querySelector("#browse");
-
+    const mainProductTemp = document.querySelector(".mainProductTemplate");
+    const mainProduct = document.querySelector("#mainProduct");
     // Add black background only for single product view
     header.classList.add("bg-black");
     browseView.classList.add("hidden");
     singleProductView.classList.remove("hidden");
+
+    const clone = mainProductTemp.content.cloneNode(true);
+     
+    mainProduct.replaceChildren(); // Clear existing content
+    //setting images
+    const productId = productCard.id;
+    clone.querySelector("#mainProductImage").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","800/800"));
+    clone.querySelector("#mainProductImage2").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","400/400").replace(productId, productId + "2"));
+    clone.querySelector("#mainProductImage3").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","400/400").replace(productId, productId + "3"));
+    
+    //setting details
+    clone.querySelector("#mainProductDetails #mainProductName").textContent = productCard.dataset.productName;
+    clone.querySelector("#mainProductDetails #mainProductPrice").textContent = `$${parseFloat(productCard.dataset.productPrice).toFixed(2)}`;
+    mainProduct.appendChild(clone);
+    singleProductView.appendChild(mainProduct);
+}
+
+function displayRelatedProducts(event){
+    
 }
 
 });
