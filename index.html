@@ -28,15 +28,6 @@
 <article class="w-100 min-h-screen pt-20 pb-32" id="home">
     <h1 class="pt-20 text-8xl font-bold text-gray-50 flex justify-center drop-shadow-md">Welcome to Our Store</h1>
     <ul class="absolute bottom-0 left-0 right-0 flex justify-around " id="product-list">
-        <template class="product-card">
-            <div id="productCardHome" class="max-w-xs rounded-[2vw] overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white">
-                <img class="w-full"/>
-                <div class="px-6 py-4 text-center">
-                    <div class="font-bold text-xl mb-2" id="product-name"></div>
-                    <p class="text-gray-700 text-base" id="product-price"></p>
-                </div>
-            </div>
-        </template>    
     </ul>
 </article>
 
@@ -194,9 +185,9 @@
             
         </header>
 
-        <!--template for the product card for the browse view-->
+        <!--template for the product card for browse and home view-->
         <template class="productCardTemplate">
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4">
+            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
                 <img class="w-full product-image"/>
                 <div class="m-2 relative">
                     <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
@@ -221,6 +212,17 @@
 </article>
 
 <article class="hidden bg-white pt-20" id="singleProduct">
+    <!-- Breadcrumb Navigation -->
+    <nav class="px-6 py-4 text-sm text-gray-600">
+        <ol class="flex items-center space-x-2">
+            <li><span class="hover:text-gray-900 cursor-default">Home</span></li>
+            <li><span class="text-gray-400">/</span></li>
+            <li><span id="breadcrumbCategory" class="hover:text-gray-900 cursor-default"></span></li>
+            <li><span class="text-gray-400">/</span></li>
+            <li><span id="breadcrumbProduct" class="font-semibold text-gray-900"></span></li>
+        </ol>
+    </nav>
+    
     <template class="mainProductTemplate">
             <div class="flex flex-wrap"style="width: 50%;"id="mainProductImages">
                 <img id="mainProductImage" class="w-full mb-6" />
@@ -232,11 +234,19 @@
                 
                     <h1 id="mainProductName" class="text-black text-3xl font-bold mb-6"></h1>
                     <p id="mainProductPrice" class="text-black text-2xl mb-6"></p>
-                    <p class="text-black text-xl mb-6"></p>
-                    <p class="text-black">Material</p>
+                    <p id="mainProductDescription" class="text-black text-xl mb-6"></p>
+                    <p id="mainProductMaterial" class="text-black"></p>
+                    <div id="mainProductSizes" class="mb-6">
+                        <label for="sizeSelect" class="text-black mr-4">Size</label>
+                        <!--add sizes dynamically-->
+                    </div>
                     <form method="post">
-                        <label for="quantityInput" class="text-black"> Quantity</label>
-                        <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6 text-center"/>
+                        <label for="quantityInput" class="text-black block mb-2">Quantity</label>
+                        <div class="flex items-center space-x-3 mb-6">
+                            <button type="button" id="decreaseQty" class="w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-md hover:bg-gray-100 text-xl font-semibold">−</button>
+                            <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border-2 border-gray-300 rounded-md w-16 h-10 text-center font-semibold" readonly/>
+                            <button type="button" id="increaseQty" class="w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-md hover:bg-gray-100 text-xl font-semibold">+</button>
+                        </div>
                         <br>
                         <submit class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</submit>
                     </form>
@@ -247,38 +257,23 @@
     <section class="justify-center text-center bg-black" id="relatedProducts">
         <h1 class="text-white text-3xl font-bold mb-6 pt-10">Related Products</h1>
 
+
+        <!-- <template class="relatedProductTemplate">
+            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
+                <img class="w-full product-image"/>
+                <div class="m-2 relative">
+                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
+                    <div class="px-6 py-4 text-center">
+                        <div class="font-bold text-xl mb-2 product-name">test</div>
+                        <p class="text-gray-700 text-base product-price">test</p>
+                    </div>
+                </div>
+            </div>
+        </template> -->
         <ul class="flex justify-around overflow-x-auto pb-6" id="relatedProductList">
            
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
-                <img class="w-full product-image" src="https://picsum.photos/seed/302/300"/>
-                <div class="m-2 relative">
-                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
-                    <div class="px-6 py-4 text-center">
-                        <div class="font-bold text-xl mb-2 product-name">test</div>
-                        <p class="text-gray-700 text-base product-price">test</p>
-                    </div>
-                </div>
-            </div>
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
-                <img class="w-full product-image" src="https://picsum.photos/seed/related2/600/600"/>
-                <div class="m-2 relative">
-                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
-                    <div class="px-6 py-4 text-center">
-                        <div class="font-bold text-xl mb-2 product-name">test</div>
-                        <p class="text-gray-700 text-base product-price">test</p>
-                    </div>
-                </div>
-            </div>
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
-                <img class="w-full product-image" src="https://picsum.photos/seed/related3/600/600"/>
-                <div class="m-2 relative">
-                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
-                    <div class="px-6 py-4 text-center">
-                        <div class="font-bold text-xl mb-2 product-name">test</div>
-                        <p class="text-gray-700 text-base product-price">test</p>
-                    </div>
-                </div>
-            </div>
+            
+            
         </ul>
 
     </section>

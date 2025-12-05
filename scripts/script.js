@@ -21,30 +21,47 @@ fetchProducts()
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
 
-
-function focusOnView(e){
-    e.preventDefault();
-    const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
-    const viewId = link.getAttribute("href").substring(1); //get the id without the #
+//function to switch views, either by event or programmatically
+function focusOnView(e, programmaticViewId = null){
+    // Support both event-based and programmatic calls
+    if (e && e.preventDefault) {
+        e.preventDefault();
+    }
+    
+    let viewId;
+    if (programmaticViewId) {
+        viewId = programmaticViewId;
+    } else {
+        const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
+        viewId = link.getAttribute("href").substring(1); //get the id without the #
+    }
+    
     const views = document.querySelectorAll("main article");
     const header = document.querySelector("header");
+    const main = document.querySelector("main");
     
-    for (let view of views) {
-         if (viewId != "home"){
-            document.querySelector("main").classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
-         }
-         else if (viewId == "home"){
-            document.querySelector("main").classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
-        }
-        
-        // Remove black background from header when navigating away from single product view
+    // Manage background image
+    if (viewId != "home"){
+        main.classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
+    } else {
+        main.classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
+    }
+    
+    // Manage header background - black only for single product view
+    if (viewId === "singleProduct") {
+        header.classList.add("bg-black");
+    } else {
         header.classList.remove("bg-black");
+    }
 
-        if (viewId == "browse"){
-            displayProducts(allProducts);
-        }
-         view.id == viewId ? view.classList.remove("hidden") : 
-         view.classList.add("hidden");
+    // Trigger browse display if needed
+    if (viewId == "browse"){
+        displayProducts(allProducts);
+    }
+    
+    // Show/hide views
+    for (let view of views) {
+        view.id == viewId ? view.classList.remove("hidden") : view.classList.add("hidden");
     }
 }
 
@@ -64,20 +81,14 @@ async function fetchProducts(){
 
 //card elements for home page
 function populateHomePage(products){
-    const card = document.querySelector(".product-card");
+    const card = document.querySelector(".productCardTemplate");
     const productList = document.querySelector("#product-list");
     productList.replaceChildren(); // Clear existing products
     //add first 3 products to home page
     for (let i = 0; i < 3; i++){
         const product = products[i];
         const clone = card.content.cloneNode(true);
-        clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
-        clone.querySelector("#product-name").textContent = product.name;
-        clone.querySelector("#product-price").textContent = `$${product.price.toFixed(2)}`;
-
-        clone.querySelector("#productCardHome").addEventListener("click", function(productEvent) {
-            //displaySingleProduct(productEvent);
-        });
+        setupProductCard(clone, product);
         productList.appendChild(clone);
     }
 }
@@ -208,32 +219,39 @@ async function displayProducts(products){
 
         products.forEach(product => {
             const clone = card.content.cloneNode(true);
-            clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
-            clone.querySelector(".product-name").textContent = product.name;
-            clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
-            
-            const addtoCartBtn = clone.querySelector("#addToCartBtn");
-            addtoCartBtn.addEventListener("click", function(e) {
-                // Prevent the click from propagating to the product card
-                e.stopPropagation();
-                addToCart(e);
-            });
-            
-            const productCard = clone.querySelector("#productCardBrowse");
-            productCard.id = product.id; // Set the id of the product card for reference
-            productCard.dataset.productName = product.name; // Store product name for later use
-            productCard.dataset.productPrice = product.price; // Store product price for later use
-            productCard.addEventListener("click", function(productEvent) {
-                displaySingleProduct(productEvent);
-
-            });
+            setupProductCard(clone, product);
             productList.appendChild(clone);
-
-            
         });
         console.log("Products populated");
         console.log(allProducts[0]);
         
+}
+
+// Reusable function to set up product card with all functionality
+function setupProductCard(clone, product) {
+    clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
+    clone.querySelector(".product-name").textContent = product.name;
+    clone.querySelector(".product-price").textContent = `$${product.price.toFixed(2)}`;
+
+    const addtoCartBtn = clone.querySelector("#addToCartBtn");
+    addtoCartBtn.addEventListener("click", function(e) {
+        // Prevent the click from propagating to the product card
+        e.stopPropagation();
+        addToCart(e);
+    });
+    
+    const productCard = clone.querySelector("#productCardBrowse");
+    productCard.id = product.id; // Set the id of the product card for reference
+    productCard.dataset.productName = product.name; // Store product name for later use
+    productCard.dataset.productPrice = product.price; // Store product price for later use
+    productCard.dataset.productDescription = product.description; // Store product description for later use
+    productCard.dataset.productMaterial = product.material; // Store product material for later use
+    productCard.dataset.sizes = product.sizes; 
+    productCard.dataset.productCategory = product.category; // Store product category for later use
+    productCard.dataset.productGender = product.gender; // Store product gender for later use
+    productCard.addEventListener("click", function(productEvent) {
+        displaySingleProduct(productEvent);
+    });
 }
 
 
@@ -468,35 +486,127 @@ function addToCart(event){
 
 function displaySingleProduct(event){
     const productCard = event.currentTarget;
-    const singleProductView = document.querySelector("#singleProduct");
-    const main = document.querySelector("main");
-    const header = document.querySelector("header");
-    const browseView = document.querySelector("#browse");
     const mainProductTemp = document.querySelector(".mainProductTemplate");
     const mainProduct = document.querySelector("#mainProduct");
-    // Add black background only for single product view
-    header.classList.add("bg-black");
-    browseView.classList.add("hidden");
-    singleProductView.classList.remove("hidden");
+    
+    // Use focusOnView for consistent navigation
+    focusOnView(null, "singleProduct");
+    
+    // Update breadcrumb navigation
+    document.querySelector("#breadcrumbCategory").textContent = productCard.dataset.productCategory;
+    document.querySelector("#breadcrumbProduct").textContent = productCard.dataset.productName;
 
     const clone = mainProductTemp.content.cloneNode(true);
      
     mainProduct.replaceChildren(); // Clear existing content
     //setting images
     const productId = productCard.id;
-    clone.querySelector("#mainProductImage").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","800/800"));
+    clone.querySelector("#mainProductImage").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","800/600"));
     clone.querySelector("#mainProductImage2").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","400/400").replace(productId, productId + "2"));
     clone.querySelector("#mainProductImage3").setAttribute("src", productCard.querySelector("img").getAttribute("src").replace("300/300","400/400").replace(productId, productId + "3"));
     
     //setting details
     clone.querySelector("#mainProductDetails #mainProductName").textContent = productCard.dataset.productName;
     clone.querySelector("#mainProductDetails #mainProductPrice").textContent = `$${parseFloat(productCard.dataset.productPrice).toFixed(2)}`;
+    clone.querySelector("#mainProductDetails #mainProductDescription").textContent = productCard.dataset.productDescription;
+    clone.querySelector("#mainProductDetails #mainProductMaterial").textContent = productCard.dataset.productMaterial;
+
+    //adding sizes dynamically
+    const sizes = productCard.dataset.sizes.split(",");
+    const sizeContainer = clone.querySelector("#mainProductDetails #mainProductSizes");
+    sizes.forEach(size => {
+        const sizeOption = document.createElement("button");
+        sizeOption.type = "button";
+        sizeOption.textContent = size.trim();
+        sizeOption.className = "border border-gray-400 rounded px-3 py-1 mr-2 mb-2 hover:bg-gray-200";
+        sizeContainer.appendChild(sizeOption);
+    });
+
     mainProduct.appendChild(clone);
-    singleProductView.appendChild(mainProduct);
+    
+    // Add quantity button functionality
+    const quantityInput = document.querySelector("#quantityInput");
+    const decreaseBtn = document.querySelector("#decreaseQty");
+    const increaseBtn = document.querySelector("#increaseQty");
+    
+    decreaseBtn.addEventListener("click", () => {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    
+    increaseBtn.addEventListener("click", () => {
+        const currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+    });
+    
+    displayRelatedProducts(productCard);
+    
 }
 
-function displayRelatedProducts(event){
+function getRelatedProducts(currentProduct, allProducts, limit = 3) {
+    const currentPrice = parseFloat(currentProduct.dataset.productPrice);
+    const currentMaterial = currentProduct.dataset.productMaterial;
+    const currentCategory = currentProduct.dataset.productCategory;
+    const currentGender = currentProduct.dataset.productGender;
     
+    // Score each product by relevance
+    const scoredProducts = allProducts
+        .filter(p => p.id != currentProduct.id) // Don't show the current product
+        .map(p => {
+            //uses a scoring system to rank related products
+            let score = 0;
+            
+            // Same category and gender (highest priority)
+            if (p.category === currentCategory && p.gender === currentGender) {
+                score += 100;
+            }
+            // Same category, different gender (lower priority)
+            else if (p.category === currentCategory) {
+                score += 50;
+            }
+            // Same gender, different category
+            else if (p.gender === currentGender) {
+                score += 20;
+            }
+            
+            // Similar material (e.g., silk products go with other silk)
+            if (p.material.toLowerCase().includes(currentMaterial.toLowerCase().split(/[,\s]/)[0]) ||
+                currentMaterial.toLowerCase().includes(p.material.toLowerCase().split(/[,\s]/)[0])) {
+                score += 30;
+            }
+            
+            // Similar price range (luxury paired with luxury, budget with budget)
+            const priceDifference = Math.abs(p.price - currentPrice) / currentPrice;
+            if (priceDifference < 0.3) {
+                score += 40;
+            } else if (priceDifference < 0.5) {
+                score += 20;
+            }
+            
+            return { product: p, score: score };
+        })
+        .filter(item => item.score > 0) // Only show products with some relevance
+        .sort((a, b) => b.score - a.score) // Sort by score descending
+        .slice(0, limit)
+        .map(item => item.product);
+    
+    return scoredProducts;
+}
+
+function displayRelatedProducts(currentProduct){
+    const relatedProductsList = document.querySelector("#relatedProductList");
+    const relatedProducts = getRelatedProducts(currentProduct, allProducts);
+    
+    relatedProductsList.replaceChildren(); // Clear existing related products
+
+    relatedProducts.forEach(product => {
+        const clone = document.querySelector(".productCardTemplate").content.cloneNode(true);
+        setupProductCard(clone, product);
+        relatedProductsList.appendChild(clone);    
+    });
+
 }
 
 });
