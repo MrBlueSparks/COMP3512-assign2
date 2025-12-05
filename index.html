@@ -220,23 +220,61 @@
   <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 "></div>
 </article>
 
-<article class="hidden bg-white pt-20 flex flex-col items-center" id="singleProduct">
-    <h1 class="text-black"> This is the Product View</h1>
-    <section id="mainProduct">
-        <img id="mainProductImage" class="w-96 mb-6"/>
+<article class="hidden bg-white pt-20" id="singleProduct">
+    <section id="mainProduct" class="flex flex-row p-6">
+        <div class="flex flex-wrap"style="width: 50%;"id="mainProductImages">
+            <img id="mainProductImage" class="w-full mb-6" src="https://picsum.photos/seed/mainproduct/800/800"/>
+            <img id="mainProductImage2" class="w-1/2 mb-6" src="https://picsum.photos/seed/product2/400/400"/>
+            <img id="mainProductImage3" class="w-1/2 mb-6" src="https://picsum.photos/seed/product3/400/400"/>
+        </div>
         
-
-        <h1 class="text-black text-3xl font-bold mb-6">Product Title</h1>
-        <p class="text-black text-2xl mb-6">Product Price</p>
-        <p class="text-black text-xl mb-6">Product Description</p>
-        <p class="text-black">Material</p>
-        <label class="text-black"> Quantity</label>
-        <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6"/>
-        <button class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</button>
-
+        <div id="mainProductDetails" class="flex flex-col p-6" style="width: 50%;">
+            <h1 class="text-black text-3xl font-bold mb-6">Product Title</h1>
+            <p class="text-black text-2xl mb-6">Product Price</p>
+            <p class="text-black text-xl mb-6">Product Description</p>
+            <p class="text-black">Material</p>
+            <label class="text-black"> Quantity</label>
+            <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border border-gray-400 rounded w-16 mb-6"/>
+            <button class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</button>
+        </div>
     </section>
-    <section id="relatedProducts">
-        <h1 class="text-black text-3xl font-bold mb-6">Related Products</h1>
+    <section class="justify-center text-center bg-black" id="relatedProducts">
+        <h1 class="text-white text-3xl font-bold mb-6 pt-10">Related Products</h1>
+
+        <ul class="flex justify-around overflow-x-auto pb-6" id="relatedProductList">
+           
+            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
+                <img class="w-full product-image" src="https://picsum.photos/seed/302/300"/>
+                <div class="m-2 relative">
+                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
+                    <div class="px-6 py-4 text-center">
+                        <div class="font-bold text-xl mb-2 product-name">test</div>
+                        <p class="text-gray-700 text-base product-price">test</p>
+                    </div>
+                </div>
+            </div>
+            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
+                <img class="w-full product-image" src="https://picsum.photos/seed/related2/600/600"/>
+                <div class="m-2 relative">
+                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
+                    <div class="px-6 py-4 text-center">
+                        <div class="font-bold text-xl mb-2 product-name">test</div>
+                        <p class="text-gray-700 text-base product-price">test</p>
+                    </div>
+                </div>
+            </div>
+            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
+                <img class="w-full product-image" src="https://picsum.photos/seed/related3/600/600"/>
+                <div class="m-2 relative">
+                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
+                    <div class="px-6 py-4 text-center">
+                        <div class="font-bold text-xl mb-2 product-name">test</div>
+                        <p class="text-gray-700 text-base product-price">test</p>
+                    </div>
+                </div>
+            </div>
+        </ul>
+
     </section>
 </article>
 
