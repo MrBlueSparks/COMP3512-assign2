@@ -249,6 +249,8 @@ function setupProductCard(clone, product) {
     productCard.dataset.sizes = product.sizes; 
     productCard.dataset.productCategory = product.category; // Store product category for later use
     productCard.dataset.productGender = product.gender; // Store product gender for later use
+    productCard.dataset.colorName = product.color[0].name; // Store color name
+    productCard.dataset.colorHex = product.color[0].hex; // Store color hex value
     productCard.addEventListener("click", function(productEvent) {
         displaySingleProduct(productEvent);
     });
@@ -510,6 +512,10 @@ function displaySingleProduct(event){
     clone.querySelector("#mainProductDetails #mainProductPrice").textContent = `$${parseFloat(productCard.dataset.productPrice).toFixed(2)}`;
     clone.querySelector("#mainProductDetails #mainProductDescription").textContent = productCard.dataset.productDescription;
     clone.querySelector("#mainProductDetails #mainProductMaterial").textContent = productCard.dataset.productMaterial;
+    
+    //setting color
+    clone.querySelector("#colorSwatch").style.backgroundColor = productCard.dataset.colorHex;
+    clone.querySelector("#colorName").textContent = productCard.dataset.colorName;
 
     //adding sizes dynamically
     const sizes = productCard.dataset.sizes.split(",");

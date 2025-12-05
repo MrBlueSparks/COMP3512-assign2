@@ -235,20 +235,28 @@
                     <h1 id="mainProductName" class="text-black text-3xl font-bold mb-6"></h1>
                     <p id="mainProductPrice" class="text-black text-2xl mb-6"></p>
                     <p id="mainProductDescription" class="text-black text-xl mb-6"></p>
-                    <p id="mainProductMaterial" class="text-black"></p>
+                    <p id="mainProductMaterial" class="text-black mb-4"></p>
+                    
+                    <div class="mb-6 flex items-center">
+                        <span class="text-black font-semibold">Color: </span>
+                        <span id="mainProductColor" class="inline-flex items-center">
+                            <span id="colorSwatch" class="inline-block w-6 h-6 rounded-full border-2 border-gray-300 mr-2 ml-2"></span>
+                            <span id="colorName" class="text-black"></span>
+                        </span>
+                    </div>
+                    
                     <div id="mainProductSizes" class="mb-6">
                         <label for="sizeSelect" class="text-black mr-4">Size</label>
                         <!--add sizes dynamically-->
                     </div>
                     <form method="post">
-                        <label for="quantityInput" class="text-black block mb-2">Quantity</label>
+                        <label for="quantityInput" class="text-black block">Quantity</label>
                         <div class="flex items-center space-x-3 mb-6">
                             <button type="button" id="decreaseQty" class="w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-md hover:bg-gray-100 text-xl font-semibold">−</button>
-                            <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border-2 border-gray-300 rounded-md w-16 h-10 text-center font-semibold" readonly/>
+                            <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border-2 border-gray-300 rounded-md w-16 h-10 text-center font-semibold pl-4" readonly/>
                             <button type="button" id="increaseQty" class="w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-md hover:bg-gray-100 text-xl font-semibold">+</button>
                         </div>
-                        <br>
-                        <submit class="bg-blue-600 text-black px-3 py-1 rounded border-dashed border-2 border-black">Add to Cart</submit>
+                        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg">Add to Cart</button>
                     </form>
             </div>
     </template>
