@@ -263,7 +263,7 @@ function setupProductCard(clone, product) {
 
     const addtoCartBtn = clone.querySelector("#addToCartBtn");
     addtoCartBtn.addEventListener("click", function(e) {
-        addToCart(e, product);
+        addToCart(product);
         e.stopPropagation();
     });
     
@@ -325,7 +325,7 @@ function converthexToRGB(hex) {
     const b = bigint & 255;
     return { r, g, b };
 }
-
+// Calculate Euclidean distance between two colors in RGB space
 function colorDistance(hex1, hex2) {
     const rgb1 = converthexToRGB(hex1);
     const rgb2 = converthexToRGB(hex2);
@@ -596,7 +596,7 @@ function displaySingleProduct(event){
         
         // Add to cart with the selected quantity
         for (let i = 0; i < quantity; i++) {
-            addToCart(e, productToAdd);
+            addToCart(productToAdd);
         }
         
         // Show confirmation
@@ -673,8 +673,7 @@ function displayRelatedProducts(currentProduct){
     });
 }
 
-function addToCart(event, currentProduct){
-    // Get default size (first available size)
+function addToCart(currentProduct){
     const defaultSize = currentProduct.sizes[0];
     const colorName = currentProduct.color[0].name;
     const colorHex = currentProduct.color[0].hex;
