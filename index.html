@@ -186,6 +186,7 @@
         </header>
 
         <!--template for the product card for browse and home view-->
+        <!--used inspiration from https://v1.tailwindcss.com/components/cards -->
         <template class="productCardTemplate">
             <div id="productCardBrowse" class="w-80 overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer mb-6 rounded-[2vw]">
                 <img class="w-full h-64 object-cover product-image"/>
@@ -323,10 +324,7 @@
                     </template>
                     <!-- Items container - gets cleared/repopulated -->
                     <div id="cartItemsList" class="space-y-3">
-                        <!-- Cart items will be added here dynamically -->
-                        
-                        <!-- EXAMPLE CART ITEM (for reference - remove or template this) -->
-                        
+                        <!-- Cart items will be added here dynamically -->                    
                     </div>
                     
                     <!-- Empty cart message - shown when cartItemsList is empty -->
