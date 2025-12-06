@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 let allProducts = [];
-// Change cartItems to an object keyed by unique cart item ID
 const cartItems = {};
 
-// Track selected filters
 const selectedFilters = {
     genders: [],
     categories: [],
@@ -13,7 +11,6 @@ const selectedFilters = {
 
 let filters = false;
 
-// Fetch products immediately on page load
 fetchProducts()
     .then(products => {
         allProducts = products;
@@ -22,9 +19,7 @@ fetchProducts()
 
 document.querySelectorAll("header a").forEach(nav => nav.addEventListener("click", focusOnView));
 
-//function to switch views, either by event or programmatically
 function focusOnView(e, programmaticViewId = null){
-    // Support both event-based and programmatic calls
     if (e && e.preventDefault) {
         e.preventDefault();
     }
@@ -33,22 +28,20 @@ function focusOnView(e, programmaticViewId = null){
     if (programmaticViewId) {
         viewId = programmaticViewId;
     } else {
-        const link = e.currentTarget; // Use currentTarget to get the <a> element, not the clicked child
-        viewId = link.getAttribute("href").substring(1); //get the id without the #
+        const link = e.currentTarget;
+        viewId = link.getAttribute("href").substring(1);
     }
     
     const views = document.querySelectorAll("main article");
     const header = document.querySelector("header");
     const main = document.querySelector("main");
     
-    // Manage background image
     if (viewId != "home"){
         main.classList.remove("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
     } else {
         main.classList.add("bg-[url(images/tamara-bellis-IwVRO3TLjLc-unsplash.jpg)]","bg-cover","bg-center");
     }
     
-    // Manage header background - black only for single product view
     if (viewId === "singleProduct" || viewId === "cart") {
         header.classList.add("bg-black");
     } else {
@@ -59,18 +52,15 @@ function focusOnView(e, programmaticViewId = null){
         displayShoppingCart();
     }
 
-    // Trigger browse display if needed
     if (viewId == "browse"){
         displayProducts(allProducts);
     }
     
-    // Show/hide views
     for (let view of views) {
         view.id == viewId ? view.classList.remove("hidden") : view.classList.add("hidden");
     }
 }
 
-// About dialog functionality
 const aboutDialog = document.querySelector("#aboutDialog");
 const openAboutBtn = document.querySelector("#openAboutDialog");
 const closeDialogX = document.querySelector("#closeDialog");
@@ -88,7 +78,6 @@ closeDialogBtn.addEventListener("click", () => {
     aboutDialog.close();
 });
 
-// Close dialog when clicking on backdrop
 aboutDialog.addEventListener("click", (e) => {
     if (e.target === aboutDialog) {
         aboutDialog.close();
@@ -97,14 +86,12 @@ aboutDialog.addEventListener("click", (e) => {
 
 async function fetchProducts(){
     try{
-        // Check if data is already in localStorage
         const cachedData = localStorage.getItem('productsData');
         if (cachedData) {
             console.log('Loading products from localStorage');
             return JSON.parse(cachedData);
         }
         
-        // If not cached, fetch from server
         console.log('Fetching products from server');
         const response = await fetch("data/data-minifed.json");
         if(!response.ok){
@@ -112,7 +99,6 @@ async function fetchProducts(){
         }
         const products = await response.json();
         
-        // Store in localStorage for future use
         localStorage.setItem('productsData', JSON.stringify(products));
         
         return products;
@@ -122,12 +108,10 @@ async function fetchProducts(){
     }
 }
 
-//card elements for home page
 function populateHomePage(products){
     const card = document.querySelector(".productCardTemplate");
     const productList = document.querySelector("#product-list");
-    productList.replaceChildren(); // Clear existing products
-    //add first 3 products to home page
+    productList.replaceChildren();
     for (let i = 0; i < 3; i++){
         const product = products[i];
         const clone = card.content.cloneNode(true);
@@ -149,7 +133,6 @@ function toggleFilter(id) {
   }
 }
 
-// Filter button click handlers
 document.querySelector("#genderFilterButton").addEventListener("click", () => toggleFilter("genderFilter"));
 document.querySelector("#categoryFilterButton").addEventListener("click", () => toggleFilter("categoryFilter"));
 document.querySelector("#colorFilterButton").addEventListener("click", () => toggleFilter("colorFilter"));
@@ -180,7 +163,6 @@ document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkb
     });
 });
 
-//Category checkbox handlers
 document.querySelectorAll('#categoryFilter input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         if (checkbox.checked){
@@ -203,15 +185,12 @@ document.querySelectorAll('#categoryFilter input[type="checkbox"]').forEach(chec
     });
 });
 
-// Color swatch click handlers
 document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
     swatch.addEventListener('click', function() {
-        // Toggle active state
         this.classList.toggle('ring-4');
         this.classList.toggle('ring-white');
         this.classList.toggle('scale-110');
         
-        // Get selected color
         const color = this.dataset.color;
         
         const index = selectedFilters.colors.indexOf(color);
@@ -229,14 +208,11 @@ document.querySelectorAll('#colorFilter button[data-color]').forEach(swatch => {
     });
 });
 
-// Size pill click handlers
 document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
     pill.addEventListener('click', function() {
-        // Toggle active state
         this.classList.toggle('bg-white');
         this.classList.toggle('text-gray-900');
         
-        // Get selected size
         const size = this.dataset.size;
         console.log('Size selected:', size);
         
@@ -256,7 +232,7 @@ document.querySelectorAll('#sizeFilter button[data-size]').forEach(pill => {
 
 async function displayProducts(products){
         const productList = document.querySelector("#product-list-browse");
-        productList.replaceChildren(); // Clear existing products
+        productList.replaceChildren();
 
         if (!products || products.length === 0){
             const noProductsMsg = document.createElement("p");
@@ -280,7 +256,6 @@ async function displayProducts(products){
         
 }
 
-// Reusable function to set up product card with all functionality
 function setupProductCard(clone, product) {
     clone.querySelector("img").setAttribute("src", `https://picsum.photos/seed/${product.id}/300/300`);
     clone.querySelector(".product-name").textContent = product.name;
@@ -288,50 +263,41 @@ function setupProductCard(clone, product) {
 
     const addtoCartBtn = clone.querySelector("#addToCartBtn");
     addtoCartBtn.addEventListener("click", function(e) {
-        // Prevent the click from propagating to the product card
         addToCart(e, product);
         e.stopPropagation();
-
     });
     
     const productCard = clone.querySelector("#productCardBrowse");
-    productCard.id = product.id; // Set the id of the product card for reference
-    productCard.dataset.productName = product.name; // Store product name for later use
-    productCard.dataset.productPrice = product.price; // Store product price for later use
-    productCard.dataset.productDescription = product.description; // Store product description for later use
-    productCard.dataset.productMaterial = product.material; // Store product material for later use
-    productCard.dataset.sizes = product.sizes; 
-    productCard.dataset.productCategory = product.category; // Store product category for later use
-    productCard.dataset.productGender = product.gender; // Store product gender for later use
-    productCard.dataset.colorName = product.color[0].name; // Store color name
-    productCard.dataset.colorHex = product.color[0].hex; // Store color hex value
+    productCard.id = product.id;
+    productCard.dataset.productName = product.name;
+    productCard.dataset.productPrice = product.price;
+    productCard.dataset.productDescription = product.description;
+    productCard.dataset.productMaterial = product.material;
+    productCard.dataset.sizes = product.sizes;
+    productCard.dataset.productCategory = product.category;
+    productCard.dataset.productGender = product.gender;
+    productCard.dataset.colorName = product.color[0].name;
+    productCard.dataset.colorHex = product.color[0].hex;
     productCard.addEventListener("click", function(productEvent) {
         displaySingleProduct(productEvent);
     });
 }
 
-
-//this is where we filter our products
-
 function applyFilters(){
-    // Start with all products, don't mutate the original array
     let filtered = allProducts;
     
-    // Filter by gender (only if genders are selected)
     if (selectedFilters.genders.length > 0) {
         filtered = filtered.filter(product => 
             selectedFilters.genders.includes(product.gender)
         );
     }
     
-     
     if (selectedFilters.categories.length > 0) {
         filtered = filtered.filter(product => 
             selectedFilters.categories.includes(product.category)
         );
     }
     
-    // Filter by color (add when ready)
     if (selectedFilters.colors.length > 0) {
         filtered = filtered.filter(product => 
             selectedFilters.colors.some(filterColor => 
@@ -340,7 +306,6 @@ function applyFilters(){
         )
     }
     
-    // Filter by size 
     if (selectedFilters.sizes.length > 0) {
         filtered = filtered.filter(product => 
             product.sizes.some(size => selectedFilters.sizes.includes(size))
@@ -349,20 +314,18 @@ function applyFilters(){
     
     console.log(`Filtered: ${filtered.length} of ${allProducts.length} products`);
     
-    // Display the filtered products
     displayProducts(filtered);
 }
         
 
 function converthexToRGB(hex) {
-    //remove the # and convert to integer with base 16
     const bigint = parseInt(hex.replace('#', ''), 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
     return { r, g, b };
 }
-//calculate euclidean distance between two colors, used for color similarity
+
 function colorDistance(hex1, hex2) {
     const rgb1 = converthexToRGB(hex1);
     const rgb2 = converthexToRGB(hex2);
@@ -426,10 +389,9 @@ function colorMatchesWithDistance(productColors, filterColor) {
 function updateActiveFilters() {
     const activeFiltersContainer = document.querySelector('#filterList');
     const template = document.querySelector('.activeFiltersTemplate');
-    activeFiltersContainer.replaceChildren(); // Clear existing filters
+    activeFiltersContainer.replaceChildren();
     
     const clearAllButton = document.querySelector('#clearAllFiltersBtn');
-    // Show or hide the "Clear All Filters" button based on active filters
     let isEmpty = Object.values(selectedFilters).every(arr => arr.length === 0);
     if (isEmpty) {
         clearAllButton.classList.add("invisible");
@@ -438,7 +400,7 @@ function updateActiveFilters() {
     }
     for (const filterGroup in selectedFilters) {
         selectedFilters[filterGroup].forEach(filterValue => {
-            if (!filterValue) return; // Skip empty values
+            if (!filterValue) return;
             const clone = template.content.cloneNode(true);
             clone.querySelector("#deleteBtnText").textContent = filterValue;
             activeFiltersContainer.appendChild(clone);
@@ -446,17 +408,13 @@ function updateActiveFilters() {
     }
 }
 
-//use event delegation to handle clicks on dynamically created delete buttons
 document.querySelector('#filterList').addEventListener('click', function(e) {
     if (e.target.classList.contains('deleteFilterBtn') || e.target.closest('.deleteFilterBtn')) {
-        
-    
         const filterValue = e.target.closest('.deleteFilterBtn').querySelector('#deleteBtnText').textContent;
         for (const filterGroup in selectedFilters) {
             const index = selectedFilters[filterGroup].indexOf(filterValue);
             if (index > -1) {
                 selectedFilters[filterGroup].splice(index, 1);
-                // Uncheck the corresponding checkbox or deactivate the button
                 if (filterGroup === 'genders') {
                     const checkbox = document.querySelector(`#genderFilter input[name="${filterValue}"]`);
                     if (checkbox) checkbox.checked = false;
@@ -483,11 +441,9 @@ document.querySelector('#filterList').addEventListener('click', function(e) {
     });
 
 document.querySelector('#clearAllFiltersBtn').addEventListener('click', function() {
-    // Clear all selected filters
     for (const filterGroup in selectedFilters) {
         selectedFilters[filterGroup] = [];
     }
-    // Uncheck all checkboxes and deactivate all buttons
     document.querySelectorAll('#genderFilter input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -762,14 +718,12 @@ function displayShoppingCart(){
     const emptyMessage = document.querySelector("#emptyCartMessage");
     const cartItemTemplate = document.querySelector(".cartItemTemplate");
     
-    cartItemsList.replaceChildren(); // Clear existing items
+    cartItemsList.replaceChildren();
     
     const cartKeys = Object.keys(storedCart);
     
-    // Show empty message if cart is empty
     if (cartKeys.length === 0) {
         emptyMessage.classList.remove('hidden');
-        // Hide shipping and summary sections
         const cartLeftSection = document.querySelector("#cart .lg\\:col-span-2");
         const summarySection = document.querySelector("#cart aside");
         
@@ -807,26 +761,23 @@ function displayShoppingCart(){
         const subtotal = item.price * item.quantity;
         clone.querySelector("#cart-item-subtotal").textContent = `$${subtotal.toFixed(2)}`;
         
-        // Add event listeners for quantity buttons
         const addBtn = clone.querySelector("#cart-item-add");
         const subtractBtn = clone.querySelector("#cart-item-subtract");
         const removeBtn = clone.querySelector("#cart-item-remove");
         
         addBtn.addEventListener("click", () => {
             storedCart[cartKey].quantity += 1;
-            // Update both localStorage and in-memory cartItems
             localStorage.setItem('cartItems', JSON.stringify(storedCart));
             Object.assign(cartItems, storedCart);
-            displayShoppingCart(); // Refresh display
+            displayShoppingCart();
         });
         
         subtractBtn.addEventListener("click", () => {
             if (storedCart[cartKey].quantity > 1) {
                 storedCart[cartKey].quantity -= 1;
-                // Update both localStorage and in-memory cartItems
                 localStorage.setItem('cartItems', JSON.stringify(storedCart));
                 Object.assign(cartItems, storedCart);
-                displayShoppingCart(); // Refresh display
+                displayShoppingCart();
                 //update cart count
                 const totalItems = Object.values(storedCart).reduce((sum, item) => sum + item.quantity, 0);
                 const cartCount = document.querySelector('#cartItemCount');
@@ -854,10 +805,9 @@ function displayShoppingCart(){
             }
         });
         
-        cartItemsList.appendChild(clone);
+    cartItemsList.appendChild(clone);
     });
     
-    // Update summary after displaying all items
     updateCartSummary();
 }
 
@@ -865,25 +815,20 @@ function updateCartSummary() {
     const storedCart = JSON.parse(localStorage.getItem('cartItems')) || {};
     const cartKeys = Object.keys(storedCart);
     
-    // Calculate merchandise total
     let merchandiseTotal = 0;
     cartKeys.forEach(cartKey => {
         const item = storedCart[cartKey];
         merchandiseTotal += item.price * item.quantity;
     });
     
-    // Get shipping method and destination
     const shippingMethod = document.querySelector("#shippingMethod").value;
     const destination = document.querySelector("#destination").value;
     
-    // Calculate shipping cost
     let shippingCost = 0;
     
-    // Free shipping if over $500
     if (merchandiseTotal > 500) {
         shippingCost = 0;
     } else {
-        // Based on destination and method
         if (destination === "canada") {
             if (shippingMethod === "standard") shippingCost = 10;
             else if (shippingMethod === "express") shippingCost = 25;
@@ -899,16 +844,13 @@ function updateCartSummary() {
         }
     }
     
-    // Calculate tax (5% only if Canada)
     let tax = 0;
     if (destination === "canada") {
         tax = merchandiseTotal * 0.05;
     }
     
-    // Calculate total
     const total = merchandiseTotal + shippingCost + tax;
     
-    // Update display
     document.querySelector("#merchandiseTotal").textContent = `$${merchandiseTotal.toFixed(2)}`;
     document.querySelector("#shippingCost").textContent = `$${shippingCost.toFixed(2)}`;
     document.querySelector("#taxAmount").textContent = `$${tax.toFixed(2)}`;
@@ -923,29 +865,22 @@ function updateCartSummary() {
     }
 }
 
-// Add event listeners for shipping changes
 document.querySelector("#shippingMethod").addEventListener("change", updateCartSummary);
 document.querySelector("#destination").addEventListener("change", updateCartSummary);
 
-// Checkout button functionality
 document.querySelector("#checkoutBtn").addEventListener("click", function() {
-    // Clear cart
     localStorage.removeItem('cartItems');
     
-    // Clear in-memory cart
     for (let key in cartItems) {
         delete cartItems[key];
     }
     
-    // Update cart count
     const cartCount = document.querySelector('#cartItemCount');
     cartCount.classList.add('hidden');
     cartCount.textContent = '0';
     
-    // Show success message (you can customize this)
     alert('Order placed successfully! Thank you for your purchase.');
     
-    // Return to home page
     focusOnView(null, "home");
 });
 
