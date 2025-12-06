@@ -1,41 +1,42 @@
 # COMP 3512 Assignment 2
-This is a simple product-viewing Single Page Application built with Javascript and Tailwind CSS (via CLI)
-This project was solely developed by Rhys Barker
 
+A single-page e-commerce application featuring product browsing, filtering, shopping cart, and checkout functionality.
 
-## Project Setup
+**Developer:** Rhys Barker  
+**Technologies:** Vanilla JavaScript, Tailwind CSS, localStorage API
+
+## Setup Instructions
 
 ### 1. Install Dependencies
-First, install all required npm packages:
-```bash 
+```bash
 npm install
 ```
 
 ### 2. Build Tailwind CSS
-Generate the CSS from the Tailwind configuration:
 ```bash
 npm run build
 ```
 
-To continuously rebuild during development:
+For development with auto-rebuild:
 ```bash
 npm run watch
 ```
 
 ### 3. Run the Application
-You can run the app in two ways:
 
-**Option A: Using a local server (recommended)**
-```bash
-npx serve .
-```
-Then open your browser to `http://localhost:3000` (or the port shown in terminal). 
-You can also run npm run dev if you have the live server extension:
+Open `index.html` in your browser or use a local development server:
+
 ```bash
 npm run dev
 ```
 
-**Option B: Direct file opening**
-Simply open `index.html` directly in your browser (file:// protocol)
+## Features
+
+- **Browse Products** - Filter by gender, category, color, and size
+- **Sort Options** - Sort by price (low/high) or name (A-Z/Z-A)
+- **Product Details** - View full product information with related recommendations
+- **Shopping Cart** - Persistent cart with quantity management
+- **Shipping Calculator** - Dynamic shipping costs based on destination and method
+- **Checkout** - Complete order processing with summary
 
 
