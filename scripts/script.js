@@ -70,13 +70,51 @@ function focusOnView(e, programmaticViewId = null){
     }
 }
 
+// About dialog functionality
+const aboutDialog = document.querySelector("#aboutDialog");
+const openAboutBtn = document.querySelector("#openAboutDialog");
+const closeDialogX = document.querySelector("#closeDialog");
+const closeDialogBtn = document.querySelector("#closeDialogBtn");
+
+openAboutBtn.addEventListener("click", () => {
+    aboutDialog.showModal();
+});
+
+closeDialogX.addEventListener("click", () => {
+    aboutDialog.close();
+});
+
+closeDialogBtn.addEventListener("click", () => {
+    aboutDialog.close();
+});
+
+// Close dialog when clicking on backdrop
+aboutDialog.addEventListener("click", (e) => {
+    if (e.target === aboutDialog) {
+        aboutDialog.close();
+    }
+});
+
 async function fetchProducts(){
     try{
+        // Check if data is already in localStorage
+        const cachedData = localStorage.getItem('productsData');
+        if (cachedData) {
+            console.log('Loading products from localStorage');
+            return JSON.parse(cachedData);
+        }
+        
+        // If not cached, fetch from server
+        console.log('Fetching products from server');
         const response = await fetch("data/data-minifed.json");
         if(!response.ok){
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const products = await response.json();
+        
+        // Store in localStorage for future use
+        localStorage.setItem('productsData', JSON.stringify(products));
+        
         return products;
     } catch(error){
         console.error("Error fetching products:", error);

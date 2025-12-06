@@ -17,7 +17,7 @@
     <a href="#home"><img class="h-10" src="images/cube.png"/></a>
     <nav class="flex space-x-10"> 
         <a href="#browse">Browse</a>  
-        <a href="#about">About</a> 
+        <button id="openAboutDialog" class="hover:opacity-80">About</button> 
     </nav>  
     <a href="#cart" class="relative">
         <img class="h-10" src="images/shoppingCart.png"/>
@@ -35,7 +35,7 @@
     
 
   <!-- Filters -->
-    <section class="flex-col mb-6 ml-6">
+    <section class="flex-col mb-6 ml-6 mr-8">
         <h2 class="text-3xl text-white font-bold mb-6">Browse Products</h2>
         <div class="border-b py-3">
 
@@ -187,8 +187,8 @@
 
         <!--template for the product card for browse and home view-->
         <template class="productCardTemplate">
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
-                <img class="w-full product-image"/>
+            <div id="productCardBrowse" class="w-80 overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer mb-6 rounded-[2vw]">
+                <img class="w-full h-64 object-cover product-image"/>
                 <div class="m-2 relative">
                     <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
                     <div class="px-6 py-4 text-center">
@@ -200,7 +200,7 @@
         </template>
         
 
-        <ul class="grid grid-cols-3" id="product-list-browse">
+        <ul class="grid grid-cols-3 gap-6" id="product-list-browse">
             
         </ul>
     </section>
@@ -268,19 +268,6 @@
     <section class="justify-center text-center bg-black" id="relatedProducts">
         <h1 class="text-white text-3xl font-bold mb-6 pt-10">Related Products</h1>
 
-
-        <!-- <template class="relatedProductTemplate">
-            <div id="productCardBrowse" class="max-w-xs overflow-hidden transition-all duration-300 hover:scale-[1.03] bg-white cursor-pointer m-4 rounded-[2vw]">
-                <img class="w-full product-image"/>
-                <div class="m-2 relative">
-                    <button class="float-right" id="addToCartBtn"><img class="h-10" src="images/cart.png"/></button>
-                    <div class="px-6 py-4 text-center">
-                        <div class="font-bold text-xl mb-2 product-name">test</div>
-                        <p class="text-gray-700 text-base product-price">test</p>
-                    </div>
-                </div>
-            </div>
-        </template> -->
         <ul class="flex justify-around overflow-x-auto pb-6" id="relatedProductList">
            
             
@@ -401,17 +388,37 @@
                     <button id="checkoutBtn" class="w-full mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
                         Checkout
                     </button>
-                </div>
+                </div
             </aside>
             
         </div>
     </div>
 </article> 
 
-<article class="hidden" id="about">
-    <h1 class="text-2xl font-bold text-blue-600">About Us</h1>
-    <p>We are a company that loves Tailwind CSS!</p>
-</article>
+<dialog id="aboutDialog" class="backdrop:bg-black backdrop:opacity-50 bg-gray-800 rounded-lg p-8 max-w-2xl">
+    <div class="relative">
+        <button id="closeDialog" class="absolute top-0 right-0 text-gray-400 hover:text-white text-2xl">&times;</button>
+        <h1 class="text-3xl font-bold text-white mb-6">About Us Dialog / Modal Window</h1>
+        
+        <p class="text-blue-400 mb-4">
+            This is an assignment for COMP 3512 - Web II: Web Application Development. In this project it features
+            a Browse view with filtering options, a Home view with featured products, a Single Product view with detailed information,
+            and a Shopping Cart view with dynamic cart management and order summary.
+        </p>
+        
+        <p class="text-blue-400 mb-6">
+            This was built with vanilla JavaScript, HTML5, and Tailwind CSS for styling.
+            <br>
+            Group Member(s): Rhys Barker
+            <br>
+            You can access the Github repo:  <a target="_blank" href="https://github.com/MrBlueSparks/COMP3512-assign2" class="text-red-400">here</a>
+        </p>
+        
+        
+        
+        <button id="closeDialogBtn" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded">Close</button>
+    </div>
+</dialog>
 </main>
 
 <footer class="bg-gray-900 text-white text-center py-6 ">
