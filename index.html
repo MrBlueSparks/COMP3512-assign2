@@ -201,6 +201,7 @@
         
 
         <ul class="grid grid-cols-3" id="product-list-browse">
+            
         </ul>
     </section>
 
@@ -210,6 +211,8 @@
   <!-- Grid -->
   <div id="browseGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 "></div>
 </article>
+
+
 
 <article class="hidden bg-white pt-20" id="singleProduct">
     <!-- Breadcrumb Navigation -->
@@ -256,7 +259,7 @@
                             <input type="number" id="quantityInput" name="quantityInput" min="1" value="1" class="border-2 border-gray-300 rounded-md w-16 h-10 text-center font-semibold pl-4" readonly/>
                             <button type="button" id="increaseQty" class="w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-md hover:bg-gray-100 text-xl font-semibold">+</button>
                         </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg">Add to Cart</button>
+                        <button id="addToCartBtn" type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg">Add to Cart</button>
                     </form>
             </div>
     </template>
@@ -287,8 +290,122 @@
     </section>
 </article>
 
-<article class="hidden" id="cart">
-    <h1> This is the Cart View</h1>
+<article class="hidden bg-gray-50 pt-20 min-h-screen" id="cart">
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Section: Cart Items + Shipping -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Cart Items Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Items</h2>
+                    <template class="cartItemTemplate">
+                    <div class="flex items-center gap-4 py-4 border-b border-gray-200">
+                            <!-- Product Image -->
+                            <img src="" alt="Product" class="w-20 h-20 object-cover rounded">
+                            
+                            <!-- Product Details -->
+                            <div class="flex-1">
+                                <h3 id="cart-item-name" class="font-semibold text-gray-900"></h3>
+                                <div class="flex items-center gap-3 text-sm text-gray-600 mt-1">
+                                    <span class="flex items-center gap-1">
+                                        <span id="cart-item-color-swatch" class="w-3 h-3 rounded-full"></span>
+                                        <span id="cart-item-color-name"></span>
+                                    </span>
+                                    <span>Size: <span id="cart-item-size"></span></span>
+                                    <span id="cart-item-price"></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Quantity Controls -->
+                            <div class="flex items-center gap-2">
+                                <button id="cart-item-subtract" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-100">−</button>
+                                <span id="cart-item-quantity" class="w-8 text-center"></span>
+                                <button id="cart-item-add" class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-100">+</button>
+                            </div>
+                            
+                            <!-- Subtotal & Remove -->
+                            <div class="text-right min-w-24">
+                                <p id="cart-item-subtotal" class="font-semibold text-gray-900"></p>
+                                <button id="cart-item-remove" class="text-red-500 hover:text-red-700 text-sm">Remove</button>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- Items container - gets cleared/repopulated -->
+                    <div id="cartItemsList" class="space-y-3">
+                        <!-- Cart items will be added here dynamically -->
+                        
+                        <!-- EXAMPLE CART ITEM (for reference - remove or template this) -->
+                        
+                    </div>
+                    
+                    <!-- Empty cart message - shown when cartItemsList is empty -->
+                    <div id="emptyCartMessage" class="hidden text-center py-12 text-gray-500">
+                        <p class="text-xl">Your cart is empty</p>
+                    </div>
+                </section>
+                
+                <!-- Shipping Options Section -->
+                <section class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Shipping</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Shipping Method</label>
+                            <select id="shippingMethod" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="standard">Standard</option>
+                                <option value="express">Express</option>
+                                <option value="priority">Priority</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Destination</label>
+                            <select id="destination" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="canada">Canada</option>
+                                <option value="us">United States</option>
+                                <option value="international">International</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+            
+            <!-- Right Section: Order Summary -->
+            <aside class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-24">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Summary</h2>
+                    
+                    <div class="space-y-3 text-gray-700">
+                        <div class="flex justify-between">
+                            <span>Merchandise</span>
+                            <span id="merchandiseTotal" class="font-semibold">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Shipping</span>
+                            <span id="shippingCost" class="font-semibold">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Tax</span>
+                            <span id="taxAmount" class="font-semibold">$0.00</span>
+                        </div>
+                        <hr class="my-3">
+                        <div class="flex justify-between text-lg font-bold text-gray-900">
+                            <span>Total</span>
+                            <span id="orderTotal">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <button id="checkoutBtn" class="w-full mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
+                        Checkout
+                    </button>
+                </div>
+            </aside>
+            
+        </div>
+    </div>
 </article> 
 
 <article class="hidden" id="about">
